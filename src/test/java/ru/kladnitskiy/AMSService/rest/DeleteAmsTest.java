@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql(scripts = "classpath:database/populateDB.sql")
+@Sql(scripts = "classpath:database/testPopulateDB.sql")
 public class DeleteAmsTest extends AbstractTest {
 
     @Override

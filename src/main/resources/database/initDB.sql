@@ -5,13 +5,13 @@ DROP SEQUENCE IF EXISTS global_seq;
 CREATE SEQUENCE global_seq START WITH 10000;
 
 CREATE TABLE ams (
-    id       INTEGER      PRIMARY KEY DEFAULT currval('global_seq'),
-    code     VARCHAR(4)   NOT NULL,
-    number   INTEGER      NOT NULL,
-    address  VARCHAR(200) NOT NULL UNIQUE,
-    type     VARCHAR      NOT NULL,
-    height   SMALLINT     NOT NULL,
-    serviced BOOL         NOT NULL DEFAULT FALSE
+    id       INTEGER            PRIMARY KEY DEFAULT currval('global_seq'),
+    code     VARCHAR(4)         NOT NULL,
+    number   INTEGER            NOT NULL,
+    address  VARCHAR(200)       NOT NULL UNIQUE,
+    type     VARCHAR            NOT NULL,
+    height   DOUBLE PRECISION   NOT NULL,
+    serviced BOOL               NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE type_of_work (
