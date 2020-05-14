@@ -21,7 +21,7 @@ public class AmsServiceImpl implements AmsService {
 
     @Override
     public List<Ams> getAll() {
-        return null;
+        return this.amsRepository.findAll();
     }
 
     @Override
@@ -38,7 +38,18 @@ public class AmsServiceImpl implements AmsService {
 
     @Override
     public Ams update(Integer id, Ams ams) {
-        return null;
+        log.info("In AmsServiceImpl method update, id={}, {}", id, ams);
+        Ams updatedAms = this.amsRepository.findById(id).orElse(null);
+        updatedAms.setCode(ams.getCode());
+        updatedAms.setNumber(ams.getNumber());
+        updatedAms.setAddress(ams.getAddress());
+        updatedAms.setHeight(ams.getHeight());
+        updatedAms.setType(ams.getType());
+        updatedAms.setServiced(ams.isServiced());
+        updatedAms.setTypesOfWork(ams.getTypesOfWork());
+        updatedAms.getTypesOfWork().setAms(updatedAms);
+        updatedAms.getTypesOfWork().setId(id);
+        return this.amsRepository.save(updatedAms);
     }
 
     @Override

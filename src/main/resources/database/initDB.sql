@@ -8,7 +8,7 @@ CREATE TABLE ams (
     id       INTEGER      PRIMARY KEY DEFAULT currval('global_seq'),
     code     VARCHAR(4)   NOT NULL,
     number   INTEGER      NOT NULL,
-    address  VARCHAR(200) NOT NULL,
+    address  VARCHAR(200) NOT NULL UNIQUE,
     type     VARCHAR      NOT NULL,
     height   SMALLINT     NOT NULL,
     serviced BOOL         NOT NULL DEFAULT FALSE

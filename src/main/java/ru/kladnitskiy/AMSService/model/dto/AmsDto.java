@@ -10,7 +10,7 @@ public class AmsDto extends AbstractAmsDto {
 
     private final TypesOfWork typesOfWork;
 
-    public AmsDto(int id, String code, int number, String address, TypeAms type, double height,
+    public AmsDto(Integer id, String code, Integer number, String address, TypeAms type, Double height,
                   boolean serviced, TypesOfWork typesOfWork) {
         super(id, code, number, address, type, height, serviced);
         this.typesOfWork = typesOfWork;
@@ -20,6 +20,4 @@ public class AmsDto extends AbstractAmsDto {
         return new AmsDto(ams.getId(), ams.getCode(), ams.getNumber(), ams.getAddress(), ams.getType(),
                 ams.getHeight(), ams.isServiced(), ams.getTypesOfWork());
     }
-
-
 }

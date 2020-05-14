@@ -23,27 +23,29 @@ public class Ams {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     private Integer id;
 
-    @Column(name = "code", nullable = false)
     @NotBlank
     @Size(min = 2, max = 4)
+    @Column(name = "code", nullable = false)
     private String code;
 
-    @Column(name = "number", nullable = false, unique = true)
     @NotNull
     @Range(min = 1, max = 5000)
-    private int number;
+    @Column(name = "number", nullable = false)
+    private Integer number;
 
-    @Column(name = "address", nullable = false)
+    @NotBlank
     @Size(max = 200)
+    @Column(name = "address", nullable = false, unique = true)
     private String address;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private TypeAms type;
 
+    @NotNull
+    @Range(min = 2, max = 200)
     @Column(name = "height", nullable = false)
-    @Range(min = 2)
-    private double height;
+    private Double height;
 
     @Column(name = "serviced")
     private boolean serviced;
@@ -56,7 +58,7 @@ public class Ams {
 
     }
 
-    public Ams(Integer id, String code, int number, String address, TypeAms type, double height, boolean serviced, TypesOfWork typesOfWork) {
+    public Ams(Integer id, String code, Integer number, String address, TypeAms type, Double height, boolean serviced, TypesOfWork typesOfWork) {
         this.id = id;
         this.code = code;
         this.number = number;
@@ -72,10 +74,4 @@ public class Ams {
         return new Ams(ams.getId(), ams.getCode(), ams.getNumber(), ams.getAddress(), ams.getType(),
                 ams.getHeight(), ams.isServiced(), ams.getTypesOfWork());
     }
-
-    public boolean isNew(){
-        return id == null;
-    }
-
-
 }
