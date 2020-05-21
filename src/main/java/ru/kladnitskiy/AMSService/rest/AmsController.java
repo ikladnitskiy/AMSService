@@ -57,7 +57,7 @@ public class AmsController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Ams ams = this.amsService.getById(id);
-        if (ams == null){
+        if (ams == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         this.amsService.delete(id);
@@ -79,7 +79,7 @@ public class AmsController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<AmsDto>> getAll(){
+    public ResponseEntity<List<AmsDto>> getAll() {
         List<Ams> amsList = this.amsService.getAll();
         if (amsList == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

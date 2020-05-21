@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -33,6 +34,10 @@ public class Ams {
     @Column(name = "number", nullable = false)
     private Integer number;
 
+    @Size(max = 128)
+    @Column(name = "cluster")
+    private String cluster;
+
     @NotBlank
     @Size(max = 200)
     @Column(name = "address", nullable = false, unique = true)
@@ -47,31 +52,47 @@ public class Ams {
     @Column(name = "height", nullable = false)
     private Double height;
 
-    @Column(name = "serviced")
-    private boolean serviced;
+    @Size(max = 32)
+    @Column(name = "service_contractor")
+    private String serviceContractor;
+
+    @Column(name = "service_date")
+    private LocalDate serviceDate;
+
+    @Size(max = 32)
+    @Column(name = "report_contractor")
+    private String reportContractor;
+
+    @Column(name = "report_date")
+    private LocalDate reportDate;
 
     @OneToOne(mappedBy = "ams", cascade = CascadeType.ALL)
     private TypesOfWork typesOfWork;
 
     //constructors
-    public Ams(){
+    public Ams() {
 
     }
 
-    public Ams(Integer id, String code, Integer number, String address, TypeAms type, Double height, boolean serviced, TypesOfWork typesOfWork) {
+    public Ams(Integer id, String code, Integer number, String cluster, String address, TypeAms type, Double height,
+               String serviceContractor, LocalDate serviceDate, String reportContractor, LocalDate reportDate, TypesOfWork typesOfWork) {
         this.id = id;
         this.code = code;
         this.number = number;
+        this.cluster = cluster;
         this.address = address;
         this.type = type;
         this.height = height;
-        this.serviced = serviced;
+        this.serviceContractor = serviceContractor;
+        this.serviceDate = serviceDate;
+        this.reportContractor = reportContractor;
+        this.reportDate = reportDate;
         this.typesOfWork = typesOfWork;
     }
 
     //methods
-    public static Ams convertToAms(AmsDto ams){
-        return new Ams(ams.getId(), ams.getCode(), ams.getNumber(), ams.getAddress(), ams.getType(),
-                ams.getHeight(), ams.isServiced(), ams.getTypesOfWork());
+    public static Ams convertToAms(AmsDto ams) {
+        return new Ams(ams.getId(), ams.getCode(), ams.getNumber(), ams.getCluster(), ams.getAddress(), ams.getType(),
+                ams.getHeight(), ams.getServiceContractor(), ams.getServiceDate(), ams.getReportContractor(), ams.getReportDate(), ams.getTypesOfWork());
     }
 }

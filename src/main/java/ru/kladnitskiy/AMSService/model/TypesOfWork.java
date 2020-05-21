@@ -41,7 +41,7 @@ public class TypesOfWork {
     public TypesOfWork() {
     }
 
-    public TypesOfWork(boolean first, boolean second, boolean third, boolean fourth, boolean fifth){
+    public TypesOfWork(boolean first, boolean second, boolean third, boolean fourth, boolean fifth) {
         this.first = first;
         this.second = second;
         this.third = third;
@@ -49,7 +49,7 @@ public class TypesOfWork {
         this.fifth = fifth;
     }
 
-    public TypesOfWork(int id, boolean first, boolean second, boolean third, boolean fourth, boolean fifth){
+    public TypesOfWork(int id, boolean first, boolean second, boolean third, boolean fourth, boolean fifth) {
         this.id = id;
         this.first = first;
         this.second = second;

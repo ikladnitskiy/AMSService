@@ -42,10 +42,14 @@ public class AmsServiceImpl implements AmsService {
         Ams updatedAms = this.amsRepository.findById(id).orElse(null);
         updatedAms.setCode(ams.getCode());
         updatedAms.setNumber(ams.getNumber());
+        updatedAms.setCluster(ams.getCluster());
         updatedAms.setAddress(ams.getAddress());
-        updatedAms.setHeight(ams.getHeight());
         updatedAms.setType(ams.getType());
-        updatedAms.setServiced(ams.isServiced());
+        updatedAms.setHeight(ams.getHeight());
+        updatedAms.setServiceContractor(ams.getServiceContractor());
+        updatedAms.setServiceDate(ams.getServiceDate());
+        updatedAms.setReportContractor(ams.getReportContractor());
+        updatedAms.setReportDate(ams.getReportDate());
         updatedAms.setTypesOfWork(ams.getTypesOfWork());
         updatedAms.getTypesOfWork().setAms(updatedAms);
         updatedAms.getTypesOfWork().setId(id);
