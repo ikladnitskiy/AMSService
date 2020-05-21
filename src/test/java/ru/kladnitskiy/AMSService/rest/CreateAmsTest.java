@@ -10,6 +10,8 @@ import ru.kladnitskiy.AMSService.model.TypeAms;
 import ru.kladnitskiy.AMSService.rest.utils.AmsInfoTest;
 import ru.kladnitskiy.AMSService.rest.utils.TypesOfWorkInfoTest;
 
+import java.time.LocalDate;
+
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -18,7 +20,7 @@ import static ru.kladnitskiy.AMSService.rest.utils.TestHelper.*;
 @Sql(scripts = "classpath:database/testPopulateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class CreateAmsTest extends AbstractTest {
 
-    private static Integer expectedId = 10000;
+    private final static Integer expectedId = 10000;
 
     private AmsInfoTest expected;
 
@@ -27,7 +29,8 @@ public class CreateAmsTest extends AbstractTest {
     public void setup() {
         super.setup();
 
-        expected = new AmsInfoTest(expectedId, "SP", 1957, "Address of tower", TypeAms.tower, 72d, true,
+        expected = new AmsInfoTest(expectedId, "SP", 1957, "SPb-west", "Test_address_of_tower", TypeAms.tower, 72.0d,
+                "Test_ServiceContractor_1", LocalDate.of(2019, 12, 7), "Test_ReportContractor_1", LocalDate.of(2019, 12, 10),
                 new TypesOfWorkInfoTest(true, true, true, false, true));
     }
 
@@ -109,25 +112,5 @@ public class CreateAmsTest extends AbstractTest {
         String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
         AmsInfoTest actual = mapFromJson(contentAsString, AmsInfoTest.class);
         assertTrue("Возвращается неверный результат при запросе создания АМС.", actual.equals(expected));
-
-        expectedId++;
-    }
-
-    //test8
-    @Test
-    public void createAmsIsServicedAbsentTest() throws Exception {
-        expected.serviced = false;
-
-        ResultActions resultActions = mockMvc.perform(post("/api/ams/")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE)
-                .content(NO_SERVICED_JSON))
-                .andExpect(status().isCreated());
-
-        String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
-        AmsInfoTest actual = mapFromJson(contentAsString, AmsInfoTest.class);
-        assertTrue("Возвращается неверный результат при запросе создания АМС.", actual.equals(expected));
-
-        expectedId++;
     }
 }

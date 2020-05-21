@@ -10,6 +10,8 @@ import ru.kladnitskiy.AMSService.model.TypeAms;
 import ru.kladnitskiy.AMSService.rest.utils.AmsInfoTest;
 import ru.kladnitskiy.AMSService.rest.utils.TypesOfWorkInfoTest;
 
+import java.time.LocalDate;
+
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,11 +44,11 @@ public class GetAmsByIdTest extends AbstractTest {
     //test3
     @Test
     public void getAmsByIdTest() throws Exception {
-        AmsInfoTest expected = new AmsInfoTest(10101, "SP", 1178,
-                "Some address of tower", TypeAms.tower, 12.5d, false,
+        AmsInfoTest expected = new AmsInfoTest(20001, "SP", 1178, "SP-Center", "Saint-Petersburg, Politechnicheskaya st., 9", TypeAms.tower, 12.5,
+                "ServiceContractor_2", LocalDate.of(2019, 12, 11), "ReportContractor_1", LocalDate.of(2019, 12, 14),
                 new TypesOfWorkInfoTest(true, true, false, false, true));
 
-        ResultActions resultActions = mockMvc.perform(get("/api/ams/10101")
+        ResultActions resultActions = mockMvc.perform(get("/api/ams/20001")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 

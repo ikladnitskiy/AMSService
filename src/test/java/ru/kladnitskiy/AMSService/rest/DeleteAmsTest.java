@@ -37,11 +37,11 @@ public class DeleteAmsTest extends AbstractTest {
     //test3
     @Test
     public void deleteAmsByIdTest() throws Exception {
-        mockMvc.perform(delete("/api/ams/10100")
+        mockMvc.perform(delete("/api/ams/20001")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/api/ams/10100")
+        mockMvc.perform(get("/api/ams/20001")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isNotFound());
     }
