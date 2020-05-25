@@ -2,10 +2,14 @@ package ru.kladnitskiy.AMSService.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.kladnitskiy.AMSService.model.Ams;
+import ru.kladnitskiy.AMSService.model.TypeAms;
 import ru.kladnitskiy.AMSService.repository.AmsRepository;
+import ru.kladnitskiy.AMSService.repository.AmsSpecificationsBuilder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -20,8 +24,29 @@ public class AmsServiceImpl implements AmsService {
     }
 
     @Override
-    public List<Ams> getAll() {
-        return this.amsRepository.findAll();
+    public List<Ams> getAll(String code, Integer number, String cluster, String address, TypeAms typeAms, Double minHeight,
+                            Double maxHeight, String serviceContractor, LocalDate afterServiceDate, LocalDate beforeServiceDate,
+                            String reportContractor, LocalDate afterReportDate, LocalDate beforeReportDate) {
+
+        log.info("In AmsServiceImpl method getAll");
+        AmsSpecificationsBuilder builder = new AmsSpecificationsBuilder();
+        builder.fillAmsSpecificationBuilder(code, number, cluster, address, typeAms, minHeight, maxHeight,
+                serviceContractor, afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate);
+        Specification<Ams> spec = builder.build();
+        return this.amsRepository.findAll(spec);
+    }
+
+    @Override
+    public long count(String code, Integer number, String cluster, String address, TypeAms typeAms, Double minHeight,
+                      Double maxHeight, String serviceContractor, LocalDate afterServiceDate, LocalDate beforeServiceDate,
+                      String reportContractor, LocalDate afterReportDate, LocalDate beforeReportDate) {
+
+        log.info("In AmsServiceImpl method count");
+        AmsSpecificationsBuilder builder = new AmsSpecificationsBuilder();
+        builder.fillAmsSpecificationBuilder(code, number, cluster, address, typeAms, minHeight, maxHeight,
+                serviceContractor, afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate);
+        Specification<Ams> spec = builder.build();
+        return this.amsRepository.count(spec);
     }
 
     @Override
@@ -58,6 +83,7 @@ public class AmsServiceImpl implements AmsService {
 
     @Override
     public void delete(Integer id) {
+        log.info("In AmsServiceImpl method delete, id={}", id);
         this.amsRepository.deleteById(id);
     }
 }
