@@ -45,5 +45,4 @@ public class DeleteAmsTest extends AbstractTest {
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isNotFound());
     }
-
 }

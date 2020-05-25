@@ -44,7 +44,7 @@ public class GetAmsByIdTest extends AbstractTest {
     //test3
     @Test
     public void getAmsByIdTest() throws Exception {
-        AmsInfoTest expected = new AmsInfoTest(20001, "SP", 1178, "SP-Center", "Saint-Petersburg, Politechnicheskaya st., 9", TypeAms.tower, 12.5,
+        AmsInfoTest expected = new AmsInfoTest(20001, "SP", 1178, "SP-Center", "Saint-Petersburg, Politechnicheskaya st., 9", TypeAms.TOWER, 12.5,
                 "ServiceContractor_2", LocalDate.of(2019, 12, 11), "ReportContractor_1", LocalDate.of(2019, 12, 14),
                 new TypesOfWorkInfoTest(true, true, false, false, true));
 

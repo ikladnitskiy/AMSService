@@ -29,7 +29,7 @@ public class CreateAmsTest extends AbstractTest {
     public void setup() {
         super.setup();
 
-        expected = new AmsInfoTest(expectedId, "SP", 1957, "SPb-west", "Test_address_of_tower", TypeAms.tower, 72.0d,
+        expected = new AmsInfoTest(expectedId, "SP", 1957, "SPb-west", "Test_address_of_tower", TypeAms.TOWER, 72.0d,
                 "Test_ServiceContractor_1", LocalDate.of(2019, 12, 7), "Test_ReportContractor_1", LocalDate.of(2019, 12, 10),
                 new TypesOfWorkInfoTest(true, true, true, false, true));
     }
