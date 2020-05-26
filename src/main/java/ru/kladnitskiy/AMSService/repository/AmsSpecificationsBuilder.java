@@ -27,6 +27,7 @@ public class AmsSpecificationsBuilder {
 
         if (code != null && !code.isEmpty()) this.with("code", SearchOperation.EQUALITY, code);
         if (number != null) this.with("number", SearchOperation.EQUALITY, number);
+        if (cluster != null) this.with("cluster", SearchOperation.EQUALITY, cluster);
         if (address != null && !address.isEmpty()) this.with("address", SearchOperation.CONTAINS, address);
         if (typeAms != null) this.with("type", SearchOperation.EQUALITY, typeAms);
         if (minHeight != null && maxHeight != null) {
