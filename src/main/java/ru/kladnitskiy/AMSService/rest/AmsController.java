@@ -98,10 +98,13 @@ public class AmsController {
                                                @RequestParam(name = "afterReportDate", required = false) @DateTimeFormat(
                                                        iso = DateTimeFormat.ISO.DATE) LocalDate afterReportDate,
                                                @RequestParam(name = "beforeReportDate", required = false) @DateTimeFormat(
-                                                       iso = DateTimeFormat.ISO.DATE) LocalDate beforeReportDate) {
+                                                       iso = DateTimeFormat.ISO.DATE) LocalDate beforeReportDate,
+                                               @RequestParam(name = "order", required = false) AmsOrder order,
+                                               @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+                                               @RequestParam(name = "pageSize", required = false) Integer pageSize) {
 
         List<Ams> amsList = this.amsService.getAll(code, number, cluster, address, typeAms, minHeight, maxHeight, serviceContractor,
-                afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate);
+                afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate, order, pageNumber, pageSize);
         if (amsList == null || amsList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
