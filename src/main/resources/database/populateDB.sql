@@ -3,8 +3,7 @@ FROM type_of_work;
 DELETE
 FROM ams;
 
-INSERT INTO ams (id, code, number, cluster, address, type, height, service_contractor, service_date, report_contractor,
-                 report_date)
+INSERT INTO ams (id, code, number, cluster, address, type, height, service_contractor, service_date, report_contractor, report_date)
 VALUES (20000, 'LE', 000078, 'СПб-Восток', 'ЛО, Кировский р-он, пос. Мга', 'MAST', 72.0, 'Буторин', '10-12-2019', 'Орехов', '13-12-2019'),
        (20001, 'SP', 001178, 'СПб-Центр', 'г. Санкт-Петербург, ул. Политехническая, д. 9', 'MONOPOLE', 12.5, 'Орехов', '11-12-2019', 'Буторин', '14-12-2019'),
        (20002, 'LE', 000500, 'СПб-Юг', 'ЛО, Тихвинский р-он, пос. Васильцово', 'MAST', 72.0, 'Буторин', '12-12-2019', 'Орехов', '14-12-2019'),

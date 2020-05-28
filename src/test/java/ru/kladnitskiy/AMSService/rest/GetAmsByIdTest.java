@@ -44,11 +44,11 @@ public class GetAmsByIdTest extends AbstractTest {
     //test3
     @Test
     public void getAmsByIdTest() throws Exception {
-        AmsInfoTest expected = new AmsInfoTest(20001, "SP", 1178, "SP-Center", "Saint-Petersburg, Politechnicheskaya st., 9", TypeAms.TOWER, 12.5,
-                "ServiceContractor_2", LocalDate.of(2019, 12, 11), "ReportContractor_1", LocalDate.of(2019, 12, 14),
-                new TypesOfWorkInfoTest(true, true, false, false, true));
+        AmsInfoTest expected = new AmsInfoTest(20007, "PS", 38, "Pskov", "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe", TypeAms.MAST, 90.0d,
+                "Ivanov", LocalDate.of(2020, 5, 16), "Petrov", LocalDate.of(2020, 5, 20),
+                new TypesOfWorkInfoTest(true, true, true, true, true, false, false, false, false, false, false, false, false, false, false));
 
-        ResultActions resultActions = mockMvc.perform(get("/api/ams/20001")
+        ResultActions resultActions = mockMvc.perform(get("/api/ams/20007")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 

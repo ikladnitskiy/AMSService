@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.kladnitskiy.AMSService.rest.utils.TestHelper.*;
 
-@Sql(scripts = "classpath:database/testPopulateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = "classpath:database/initDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class CreateAmsTest extends AbstractTest {
 
     private final static Integer expectedId = 10000;
@@ -29,15 +29,15 @@ public class CreateAmsTest extends AbstractTest {
     public void setup() {
         super.setup();
 
-        expected = new AmsInfoTest(expectedId, "SP", 1957, "SPb-west", "Test_address_of_tower", TypeAms.TOWER, 72.0d,
-                "Test_ServiceContractor_1", LocalDate.of(2019, 12, 7), "Test_ReportContractor_1", LocalDate.of(2019, 12, 10),
-                new TypesOfWorkInfoTest(true, true, true, false, true));
+        expected = new AmsInfoTest(expectedId, "PS", 38, "Pskov", "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe", TypeAms.MAST, 90.0d,
+                "Ivanov", LocalDate.of(2020, 5, 16), "Petrov", LocalDate.of(2020, 5, 20),
+                new TypesOfWorkInfoTest(true, true, true, true, true, false, false, false, false, false, false, false, false, false, false));
     }
 
     //test1
     @Test
     public void createAmsEmptyBodyTest() throws Exception {
-        mockMvc.perform(post("/api/ams/")
+        mockMvc.perform(post("/api/ams")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content("{}")
@@ -48,7 +48,7 @@ public class CreateAmsTest extends AbstractTest {
     //test2
     @Test
     public void createAmsNoAddressTest() throws Exception {
-        mockMvc.perform(post("/api/ams/")
+        mockMvc.perform(post("/api/ams")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(NO_ADDRESS_JSON)
@@ -59,7 +59,7 @@ public class CreateAmsTest extends AbstractTest {
     //test3
     @Test
     public void createAmsHeightNegativeTest() throws Exception {
-        mockMvc.perform(post("/api/ams/")
+        mockMvc.perform(post("/api/ams")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(NEGATIVE_HEIGHT_JSON)
@@ -70,7 +70,7 @@ public class CreateAmsTest extends AbstractTest {
     //test4
     @Test
     public void createAmsEmptyCodeTest() throws Exception {
-        mockMvc.perform(post("/api/ams/")
+        mockMvc.perform(post("/api/ams")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(EMPTY_CODE_JSON)
@@ -81,7 +81,7 @@ public class CreateAmsTest extends AbstractTest {
     //test5
     @Test
     public void createCodeLengthTooSmallTest() throws Exception {
-        mockMvc.perform(post("/api/ams/")
+        mockMvc.perform(post("/api/ams")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(LENGTH_CODE_TOO_SMALL_JSON)
@@ -92,7 +92,7 @@ public class CreateAmsTest extends AbstractTest {
     //test6
     @Test
     public void createAddressLengthTooBigTest() throws Exception {
-        mockMvc.perform(post("/api/ams/")
+        mockMvc.perform(post("/api/ams")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(LENGTH_ADDRESS_TOO_BIG_JSON)
@@ -103,7 +103,7 @@ public class CreateAmsTest extends AbstractTest {
     //test7
     @Test
     public void createAmsTrueTest() throws Exception {
-        ResultActions resultActions = mockMvc.perform(post("/api/ams/")
+        ResultActions resultActions = mockMvc.perform(post("/api/ams")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(NORMAL_JSON))
