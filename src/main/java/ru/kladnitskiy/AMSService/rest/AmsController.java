@@ -37,17 +37,11 @@ public class AmsController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Ams ams = this.amsService.getById(id);
-        if (ams == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(convertToAmsDto(ams), HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AmsDto> createAms(@Valid @RequestBody AmsDto amsDto) {
-        if (amsDto == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         Ams requestAms = convertToAms(amsDto);
         requestAms.getTypesOfWork().setAms(requestAms);
         Ams result = this.amsService.save(requestAms);
@@ -59,10 +53,6 @@ public class AmsController {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Ams ams = this.amsService.getById(id);
-        if (ams == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         this.amsService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -72,12 +62,7 @@ public class AmsController {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Ams ams = this.amsService.getById(id);
-        if (ams == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        Ams requestAms = convertToAms(amsDto);
-        Ams updatedAms = this.amsService.update(id, requestAms);
+        Ams updatedAms = this.amsService.update(id, convertToAms(amsDto));
         return new ResponseEntity<>(convertToAmsDto(updatedAms), HttpStatus.OK);
     }
 
@@ -105,11 +90,13 @@ public class AmsController {
 
         List<Ams> amsList = this.amsService.getAll(code, number, cluster, address, typeAms, minHeight, maxHeight, serviceContractor,
                 afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate, order, pageNumber, pageSize);
-        if (amsList == null || amsList.isEmpty()) {
+        if (amsList == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        List<AmsDto> amsDtoList = amsList.stream().map(AmsDto::convertToAmsDto).collect(Collectors.toList());
-        return new ResponseEntity<>(amsDtoList, HttpStatus.OK);
+        List<AmsDto> result = amsList.stream()
+                .map(AmsDto::convertToAmsDto)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -131,8 +118,8 @@ public class AmsController {
                                       @RequestParam(name = "beforeReportDate", required = false) @DateTimeFormat(
                                               iso = DateTimeFormat.ISO.DATE) LocalDate beforeReportDate) {
 
-        Long result = this.amsService.count(code, number, cluster, address, typeAms, minHeight, maxHeight, serviceContractor,
+        Long count = this.amsService.count(code, number, cluster, address, typeAms, minHeight, maxHeight, serviceContractor,
                 afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(count, HttpStatus.OK);
     }
 }

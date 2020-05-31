@@ -3,10 +3,9 @@ package ru.kladnitskiy.AMSService.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import ru.kladnitskiy.AMSService.exception.ResourceNotFoundException;
 import ru.kladnitskiy.AMSService.model.Ams;
 import ru.kladnitskiy.AMSService.model.TypeAms;
 import ru.kladnitskiy.AMSService.repository.AmsRepository;
@@ -15,6 +14,8 @@ import ru.kladnitskiy.AMSService.rest.AmsOrder;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import static ru.kladnitskiy.AMSService.service.AmsServiceUtils.*;
 
 @Slf4j
 @Service
@@ -38,7 +39,7 @@ public class AmsServiceImpl implements AmsService {
         builder.fillAmsSpecificationBuilder(code, number, cluster, address, typeAms, minHeight, maxHeight,
                 serviceContractor, afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate);
         Specification<Ams> spec = builder.build();
-        Page<Ams> page = this.amsRepository.findAll(spec, PageRequest.of(pageNumber, pageSize, Sort.by(order.getFieldName())));
+        Page<Ams> page = this.amsRepository.findAll(spec, getPageRequest(pageNumber, pageSize, order.getFieldName()));
         return page.getContent();
     }
 
@@ -58,37 +59,30 @@ public class AmsServiceImpl implements AmsService {
     @Override
     public Ams getById(Integer id) {
         log.info("In AmsServiceImpl method getById, id={}", id);
-        return this.amsRepository.findById(id).orElse(null);
+        return this.amsRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(String.format("entity with ID=%s", id), "getById"));
     }
 
     @Override
     public Ams save(Ams ams) {
+        validateAms(ams);
         log.info("In AmsServiceImpl method save, {}", ams);
         return this.amsRepository.save(ams);
     }
 
     @Override
     public Ams update(Integer id, Ams ams) {
+        Ams updatedAms = this.amsRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(String.format("entity with ID=%s", id), "update"));
+        updateAms(updatedAms, ams);
         log.info("In AmsServiceImpl method update, id={}, {}", id, ams);
-        Ams updatedAms = this.amsRepository.findById(id).orElse(null);
-        updatedAms.setCode(ams.getCode());
-        updatedAms.setNumber(ams.getNumber());
-        updatedAms.setCluster(ams.getCluster());
-        updatedAms.setAddress(ams.getAddress());
-        updatedAms.setType(ams.getType());
-        updatedAms.setHeight(ams.getHeight());
-        updatedAms.setServiceContractor(ams.getServiceContractor());
-        updatedAms.setServiceDate(ams.getServiceDate());
-        updatedAms.setReportContractor(ams.getReportContractor());
-        updatedAms.setReportDate(ams.getReportDate());
-        updatedAms.setTypesOfWork(ams.getTypesOfWork());
-        updatedAms.getTypesOfWork().setAms(updatedAms);
-        updatedAms.getTypesOfWork().setId(id);
         return this.amsRepository.save(updatedAms);
     }
 
     @Override
     public void delete(Integer id) {
+        this.amsRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(String.format("entity with ID=%s", id), "delete"));
         log.info("In AmsServiceImpl method delete, id={}", id);
         this.amsRepository.deleteById(id);
     }
