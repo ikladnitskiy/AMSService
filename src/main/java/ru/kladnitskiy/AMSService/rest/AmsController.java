@@ -84,9 +84,9 @@ public class AmsController {
                                                        iso = DateTimeFormat.ISO.DATE) LocalDate afterReportDate,
                                                @RequestParam(name = "beforeReportDate", required = false) @DateTimeFormat(
                                                        iso = DateTimeFormat.ISO.DATE) LocalDate beforeReportDate,
-                                               @RequestParam(name = "order", required = false) AmsOrder order,
-                                               @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
-                                               @RequestParam(name = "pageSize", required = false) Integer pageSize) {
+                                               @RequestParam(name = "order") AmsOrder order,
+                                               @RequestParam(name = "pageNumber") Integer pageNumber,
+                                               @RequestParam(name = "pageSize") Integer pageSize) {
 
         List<Ams> amsList = this.amsService.getAll(code, number, cluster, address, typeAms, minHeight, maxHeight, serviceContractor,
                 afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate, order, pageNumber, pageSize);

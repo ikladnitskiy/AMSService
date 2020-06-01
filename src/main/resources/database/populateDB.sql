@@ -1,7 +1,7 @@
-DELETE
-FROM type_of_work;
-DELETE
-FROM ams;
+SET client_encoding TO 'utf8';
+
+DELETE FROM type_of_work;
+DELETE FROM ams;
 
 INSERT INTO ams (id, code, number, cluster, address, type, height, service_contractor, service_date, report_contractor, report_date)
 VALUES (20000, 'LE', 000078, 'СПб-Восток', 'ЛО, Кировский р-он, пос. Мга', 'MAST', 72.0, 'Буторин', '10-12-2019', 'Орехов', '13-12-2019'),

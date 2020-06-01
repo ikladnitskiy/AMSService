@@ -29,7 +29,7 @@ public class CreateAmsTest extends AbstractTest {
     public void setup() {
         super.setup();
 
-        expected = new AmsInfoTest(expectedId, "PS", 38, "Pskov", "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe", TypeAms.MAST, 90.0d,
+        expected = new AmsInfoTest(expectedId, "PS", 38, "Pskov", "Pskovskaya obl., g. Ostrov", TypeAms.MAST, 90.0d,
                 "Ivanov", LocalDate.of(2020, 5, 16), "Petrov", LocalDate.of(2020, 5, 20),
                 new TypesOfWorkInfoTest(true, true, true, true, true, false, false, false, false, false, false, false, false, false, false));
     }
@@ -101,6 +101,17 @@ public class CreateAmsTest extends AbstractTest {
     }
 
     //test7
+    @Test
+    public void createAmsServiceDateLaterReportDateTest() throws Exception {
+        mockMvc.perform(post("/api/ams")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(SERVICE_DATE_LATER_WHEN_THE_REPORT_DATE_JSON)
+        )
+                .andExpect(status().isBadRequest());
+    }
+
+    //test8
     @Test
     public void createAmsTrueTest() throws Exception {
         ResultActions resultActions = mockMvc.perform(post("/api/ams")

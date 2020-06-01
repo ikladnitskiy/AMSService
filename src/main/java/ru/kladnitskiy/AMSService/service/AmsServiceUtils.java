@@ -10,6 +10,7 @@ import ru.kladnitskiy.AMSService.model.Ams;
 public class AmsServiceUtils {
 
     public static PageRequest getPageRequest(Integer pageNumber, Integer pageSize, String sort) {
+        if (pageSize > 200) throw new IllegalArgumentException("Page size must not be more than 200!");
         try {
             return PageRequest.of(pageNumber, pageSize, Sort.by(sort));
         } catch (IllegalArgumentException ex) {
@@ -22,22 +23,22 @@ public class AmsServiceUtils {
             if (ams.getServiceDate().isAfter(ams.getReportDate()))
                 throw new BadRequestException("service date must not be later than the report date", "validateAms");
         }
-        return ams.getReportDate() == null;
+        return true;
     }
 
     public static void updateAms(Ams updatedAms, Ams newAms) {
         if (validateAms(newAms)) {
             updatedAms.setCode(newAms.getCode());
             updatedAms.setNumber(newAms.getNumber());
-            updatedAms.setCluster(newAms.getCluster());
+            if (newAms.getCluster() != null) updatedAms.setCluster(newAms.getCluster());
             updatedAms.setAddress(newAms.getAddress());
             updatedAms.setType(newAms.getType());
             updatedAms.setHeight(newAms.getHeight());
-            updatedAms.setServiceContractor(newAms.getServiceContractor());
-            updatedAms.setServiceDate(newAms.getServiceDate());
-            updatedAms.setReportContractor(newAms.getReportContractor());
-            updatedAms.setReportDate(newAms.getReportDate());
-            updatedAms.setTypesOfWork(newAms.getTypesOfWork());
+            if (newAms.getServiceContractor() != null) updatedAms.setServiceContractor(newAms.getServiceContractor());
+            if (newAms.getServiceDate() != null) updatedAms.setServiceDate(newAms.getServiceDate());
+            if (newAms.getReportContractor() != null) updatedAms.setReportContractor(newAms.getReportContractor());
+            if (newAms.getReportDate() != null) updatedAms.setReportDate(newAms.getReportDate());
+            if (newAms.getTypesOfWork() != null) updatedAms.setTypesOfWork(newAms.getTypesOfWork());
             updatedAms.getTypesOfWork().setAms(updatedAms);
             updatedAms.getTypesOfWork().setId(updatedAms.getId());
         }

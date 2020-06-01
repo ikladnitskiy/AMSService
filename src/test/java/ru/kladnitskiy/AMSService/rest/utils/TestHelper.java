@@ -6,7 +6,7 @@ public class TestHelper {
                     "\"code\": \"PS\"," +
                     "\"number\": 38," +
                     "\"cluster\": \"Pskov\"," +
-                    "\"address\": \"Pskovskaya obl., Porkhovskiy r-n, d. Polonoe\"," +
+                    "\"address\": \"Pskovskaya obl., g. Ostrov\"," +
                     "\"type\": \"MAST\"," +
                     "\"height\": 90," +
                     "\"serviceContractor\": \"Ivanov\"," +
@@ -35,11 +35,11 @@ public class TestHelper {
 
     public final static String NORMAL_JSON_WITH_ID =
             "{" +
-                    "\"id\": 10000," +
+                    "\"id\": %s," +
                     "\"code\": \"PS\"," +
                     "\"number\": 38," +
                     "\"cluster\": \"Pskov\"," +
-                    "\"address\": \"Pskovskaya obl., Porkhovskiy r-n, d. Polonoe\"," +
+                    "\"address\": \"Pskovskaya obl., g. Ostrov\"," +
                     "\"type\": \"MAST\"," +
                     "\"height\": 90," +
                     "\"serviceContractor\": \"Ivanov\"," +
@@ -104,7 +104,7 @@ public class TestHelper {
                     "\"code\": \"PS\"," +
                     "\"number\": 38," +
                     "\"cluster\": \"Pskov\"," +
-                    "\"address\": \"Pskovskaya obl., Porkhovskiy r-n, d. Polonoe\"," +
+                    "\"address\": \"Pskovskaya obl., g. Ostrov\"," +
                     "\"type\": \"MAST\"," +
                     "\"height\": -90," +
                     "\"serviceContractor\": \"Ivanov\"," +
@@ -137,7 +137,7 @@ public class TestHelper {
                     "\"code\": \"\"," +
                     "\"number\": 38," +
                     "\"cluster\": \"Pskov\"," +
-                    "\"address\": \"Pskovskaya obl., Porkhovskiy r-n, d. Polonoe\"," +
+                    "\"address\": \"Pskovskaya obl., g. Ostrov\"," +
                     "\"type\": \"MAST\"," +
                     "\"height\": 90," +
                     "\"serviceContractor\": \"Ivanov\"," +
@@ -170,7 +170,40 @@ public class TestHelper {
                     "\"code\": \"P\"," +
                     "\"number\": 38," +
                     "\"cluster\": \"Pskov\"," +
-                    "\"address\": \"Pskovskaya obl., Porkhovskiy r-n, d. Polonoe\"," +
+                    "\"address\": \"Pskovskaya obl., g. Ostrov\"," +
+                    "\"type\": \"MAST\"," +
+                    "\"height\": 90," +
+                    "\"serviceContractor\": \"Ivanov\"," +
+                    "\"serviceDate\": \"2020-05-16\"," +
+                    "\"reportContractor\": \"Petrov\"," +
+                    "\"reportDate\": \"2020-05-20\"," +
+                    "\"typesOfWork\": " +
+                        "{" +
+                            "\"first1\": true," +
+                            "\"first1A\": true," +
+                            "\"second\": true," +
+                            "\"third\": true," +
+                            "\"fourth\": true," +
+                            "\"fifth\": false," +
+                            "\"sixth\": false," +
+                            "\"seventh\": false," +
+                            "\"eighth1\": false," +
+                            "\"eighth2\": false," +
+                            "\"eighth3\": false," +
+                            "\"eighth4\": false," +
+                            "\"eighth5\": false," +
+                            "\"eighth6\": false," +
+                            "\"eighth7\": false" +
+                        "}" +
+                    "}";
+
+    public final static String EMPTY_ADDRESS_JSON =
+            "{" +
+                    "\"id\": 10000," +
+                    "\"code\": \"PS\"," +
+                    "\"number\": 38," +
+                    "\"cluster\": \"Pskov\"," +
+                    "\"address\": \"\"," +
                     "\"type\": \"MAST\"," +
                     "\"height\": 90," +
                     "\"serviceContractor\": \"Ivanov\"," +
@@ -234,5 +267,49 @@ public class TestHelper {
                             "\"eighth6\": false," +
                             "\"eighth7\": false" +
                         "}" +
+                    "}";
+
+    public final static String SERVICE_DATE_LATER_WHEN_THE_REPORT_DATE_JSON =
+            "{" +
+                    "\"id\": 10000," +
+                    "\"code\": \"PS\"," +
+                    "\"number\": 38," +
+                    "\"cluster\": \"Pskov\"," +
+                    "\"address\": \"Pskovskaya obl., g. Ostrov\"," +
+                    "\"type\": \"MAST\"," +
+                    "\"height\": 90," +
+                    "\"serviceContractor\": \"Ivanov\"," +
+                    "\"serviceDate\": \"2020-05-20\"," +
+                    "\"reportContractor\": \"Petrov\"," +
+                    "\"reportDate\": \"2020-05-16\"," +
+                    "\"typesOfWork\": " +
+                        "{" +
+                            "\"first1\": true," +
+                            "\"first1A\": true," +
+                            "\"second\": true," +
+                            "\"third\": true," +
+                            "\"fourth\": true," +
+                            "\"fifth\": false," +
+                            "\"sixth\": false," +
+                            "\"seventh\": false," +
+                            "\"eighth1\": false," +
+                            "\"eighth2\": false," +
+                            "\"eighth3\": false," +
+                            "\"eighth4\": false," +
+                            "\"eighth5\": false," +
+                            "\"eighth6\": false," +
+                            "\"eighth7\": false" +
+                        "}" +
+                    "}";
+
+    public final static String JSON_SKELETON =
+            "{" +
+                    "\"code\": \"%s\"," +
+                    "\"number\": %d," +
+                    "\"address\": \"%s\"," +
+                    "\"type\": \"%s\"," +
+                    "\"height\": %s," +
+                    "\"serviceContractor\": \"%s\"," +
+                    "\"serviceDate\": \"%s\"" +
                     "}";
 }

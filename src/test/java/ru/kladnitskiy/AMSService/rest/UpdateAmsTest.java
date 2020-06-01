@@ -5,10 +5,17 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
+import org.springframework.test.web.servlet.ResultActions;
+import ru.kladnitskiy.AMSService.model.TypeAms;
+import ru.kladnitskiy.AMSService.rest.utils.AmsInfoTest;
+import ru.kladnitskiy.AMSService.rest.utils.TypesOfWorkInfoTest;
 
+import java.time.LocalDate;
+
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.kladnitskiy.AMSService.rest.utils.TestHelper.NORMAL_JSON_WITH_ID;
+import static ru.kladnitskiy.AMSService.rest.utils.TestHelper.*;
 
 @Sql(scripts = "classpath:database/testPopulateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UpdateAmsTest extends AbstractTest {
@@ -36,9 +43,88 @@ public class UpdateAmsTest extends AbstractTest {
         mockMvc.perform(put("/api/ams/50007")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
-                .content(NORMAL_JSON_WITH_ID)
+                .content(String.format(NORMAL_JSON_WITH_ID, 50007))
         )
                 .andExpect(status().isNotFound());
     }
 
+    //test3
+    @Test
+    public void updateAmsNegativeHeightTest() throws Exception {
+        mockMvc.perform(put("/api/ams/20007")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(NEGATIVE_HEIGHT_JSON)
+        )
+                .andExpect(status().isBadRequest());
+    }
+
+    //test4
+    @Test
+    public void updateAmsEmptyAddressTest() throws Exception {
+        mockMvc.perform(put("/api/ams/20007")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(EMPTY_ADDRESS_JSON)
+        )
+                .andExpect(status().isBadRequest());
+    }
+
+    //test5
+    @Test
+    public void updateAmsServiceDateLaterReportDateTest() throws Exception {
+        mockMvc.perform(put("/api/ams/20007")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(SERVICE_DATE_LATER_WHEN_THE_REPORT_DATE_JSON)
+        )
+                .andExpect(status().isBadRequest());
+    }
+
+    //test6
+    @Test
+    public void updateAmsWithIdTest() throws Exception {
+        AmsInfoTest expected = mapFromJson(String.format(NORMAL_JSON_WITH_ID, 20010), AmsInfoTest.class);
+
+        ResultActions resultActions = mockMvc.perform(put("/api/ams/20010")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(String.format(NORMAL_JSON_WITH_ID, 20003))
+        )
+                .andExpect(status().isOk());
+
+        String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
+        AmsInfoTest actual = mapFromJson(contentAsString, AmsInfoTest.class);
+
+        assertTrue("При запросе PUT api/ams/{id} поле id не должно обновляться.", actual.id != 20003);
+        assertTrue("При запросе PUT api/ams/{id} c полем id в теле запроса должны быть обновлены все поля, кроме id.", actual.equals(expected));
+    }
+
+    //test7
+    @Test
+    public void updateAmsWithDataTest() throws Exception {
+        AmsInfoTest amsInfoTest = mapFromJson(String.format(NORMAL_JSON_WITH_ID, 20008), AmsInfoTest.class);
+
+        String code = "TST";
+        Integer number = 1234;
+        String address = "Test address";
+        TypeAms type = TypeAms.PILLAR;
+        Double height = 123.4d;
+        String serviceContractor = "Contractor";
+        LocalDate serviceDate = LocalDate.of(2020, 5, 9);
+
+        AmsInfoTest expected = new AmsInfoTest(20007, code, number, amsInfoTest.cluster, address, type, height, serviceContractor,
+                serviceDate, amsInfoTest.reportContractor, amsInfoTest.reportDate, amsInfoTest.typesOfWork);
+
+        ResultActions resultActions = mockMvc.perform(put("/api/ams/20007")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(String.format(JSON_SKELETON, code, number, address, type, height, serviceContractor, serviceDate)))
+                .andExpect(status().isOk());
+
+        String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
+        AmsInfoTest actual = mapFromJson(contentAsString, AmsInfoTest.class);
+
+        assertTrue("При запросе PUT api/ams/{id} должны быть обновлены все поля.", actual.equals(expected));
+    }
 }
