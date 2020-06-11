@@ -1,4 +1,4 @@
-package ru.kladnitskiy.AMSService.service;
+package ru.kladnitskiy.AMSService.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +11,12 @@ import ru.kladnitskiy.AMSService.model.TypeAms;
 import ru.kladnitskiy.AMSService.repository.AmsRepository;
 import ru.kladnitskiy.AMSService.repository.AmsSpecificationsBuilder;
 import ru.kladnitskiy.AMSService.rest.AmsOrder;
+import ru.kladnitskiy.AMSService.service.AmsService;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static ru.kladnitskiy.AMSService.service.AmsServiceUtils.*;
+import static ru.kladnitskiy.AMSService.service.impl.AmsServiceUtils.*;
 
 @Slf4j
 @Service

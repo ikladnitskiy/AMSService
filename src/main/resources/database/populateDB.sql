@@ -75,3 +75,16 @@ VALUES (20000, true, true, false, true, true, false, false, false, false, false,
        (20031, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false),
        (20032, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false),
        (20033, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false);
+
+INSERT INTO roles (name)
+VALUES ('ROLE_USER'),
+       ('ROLE_ADMIN');
+
+INSERT INTO users (id, username, email, first_name, last_name, password, created, updated, status)
+VALUES (1, 'Admin', 'admin@test.com', 'David', 'Ivanov', '$2a$04$BXQ8GHJqM9nlVA0ephumbOEnolo/o6Rr8PKc7PA1SQl7xsCcAPqwe', '10-06-2020', '10-06-2020', 'ACTIVE'), -- password 'admin'
+       (2, 'User', 'user@test.com', 'Ivan', 'Davidov', '$2a$04$G/PHPCzElBdVlk4n0koA9.jjVHk52hfNmeBpqyGtZ8NcQjq6Mh.0u', '10-06-2020', '10-06-2020', 'ACTIVE'); -- password 'user'
+
+INSERT INTO user_roles (user_id, role_id)
+VALUES (1, 1),
+       (1, 2),
+       (2, 1)

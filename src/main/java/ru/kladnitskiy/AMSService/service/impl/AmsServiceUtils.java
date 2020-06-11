@@ -1,12 +1,10 @@
-package ru.kladnitskiy.AMSService.service;
+package ru.kladnitskiy.AMSService.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import ru.kladnitskiy.AMSService.exception.BadRequestException;
 import ru.kladnitskiy.AMSService.model.Ams;
 
-@Slf4j
 public class AmsServiceUtils {
 
     public static PageRequest getPageRequest(Integer pageNumber, Integer pageSize, String sort) {

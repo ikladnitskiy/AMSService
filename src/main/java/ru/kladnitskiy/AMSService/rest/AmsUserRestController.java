@@ -12,17 +12,15 @@ import ru.kladnitskiy.AMSService.model.TypeAms;
 import ru.kladnitskiy.AMSService.model.dto.AmsDto;
 import ru.kladnitskiy.AMSService.service.AmsService;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.kladnitskiy.AMSService.model.Ams.convertToAms;
 import static ru.kladnitskiy.AMSService.model.dto.AmsDto.convertToAmsDto;
 
 @RestController
-@RequestMapping(value = "/api/ams")
-public class AmsController {
+@RequestMapping(value = "/api/user/ams")
+public class AmsUserRestController {
 
     private AmsService amsService;
 
@@ -38,32 +36,6 @@ public class AmsController {
         }
         Ams ams = this.amsService.getById(id);
         return new ResponseEntity<>(convertToAmsDto(ams), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AmsDto> createAms(@Valid @RequestBody AmsDto amsDto) {
-        Ams requestAms = convertToAms(amsDto);
-        requestAms.getTypesOfWork().setAms(requestAms);
-        Ams result = this.amsService.save(requestAms);
-        return new ResponseEntity<>(convertToAmsDto(result), HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AmsDto> deleteAms(@PathVariable("id") Integer id) {
-        if (id == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        this.amsService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AmsDto> updateAms(@PathVariable("id") Integer id, @Valid @RequestBody AmsDto amsDto) {
-        if (id == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        Ams updatedAms = this.amsService.update(id, convertToAms(amsDto));
-        return new ResponseEntity<>(convertToAmsDto(updatedAms), HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

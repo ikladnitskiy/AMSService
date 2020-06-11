@@ -2,6 +2,9 @@ SET client_encoding TO 'utf8';
 
 DROP TABLE IF EXISTS type_of_work;
 DROP TABLE IF EXISTS ams;
+DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START WITH 10000;
@@ -40,4 +43,34 @@ CREATE TABLE type_of_work
     eighth_6 BOOL NOT NULL DEFAULT FALSE,
     eighth_7 BOOL NOT NULL DEFAULT FALSE,
     CONSTRAINT ams_fk FOREIGN KEY (ams_id) REFERENCES ams (id) ON DELETE CASCADE
+);
+
+CREATE TABLE users
+(
+    id         BIGSERIAL PRIMARY KEY,
+    username   VARCHAR(100)                 NOT NULL,
+    email      VARCHAR(255)                 NOT NULL,
+    first_name VARCHAR(100)                 NOT NULL,
+    last_name  VARCHAR(100)                 NOT NULL,
+    password   VARCHAR(255)                 NOT NULL,
+    created    TIMESTAMP   DEFAULT now()    NOT NULL,
+    updated    TIMESTAMP   DEFAULT now()    NOT NULL,
+    status     VARCHAR(25) DEFAULT 'ACTIVE' NOT NULL
+);
+
+CREATE TABLE roles
+(
+    id      BIGSERIAL PRIMARY KEY,
+    name    VARCHAR(100)                 NOT NULL,
+    created TIMESTAMP   DEFAULT now()    NOT NULL,
+    updated TIMESTAMP   DEFAULT now()    NOT NULL,
+    status  VARCHAR(25) DEFAULT 'ACTIVE' NOT NULL
+);
+
+CREATE TABLE user_roles
+(
+    user_id BIGINT,
+    role_id BIGINT,
+    CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    CONSTRAINT role_id_fk FOREIGN KEY (role_id) REFERENCES roles (id) ON DELETE CASCADE
 );
