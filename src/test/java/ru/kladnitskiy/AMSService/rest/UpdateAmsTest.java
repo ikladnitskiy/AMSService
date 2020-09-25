@@ -114,7 +114,7 @@ public class UpdateAmsTest extends AbstractTest {
         LocalDate serviceDate = LocalDate.of(2020, 5, 9);
 
         AmsInfoTest expected = new AmsInfoTest(20007, code, number, amsInfoTest.cluster, address, type, height, serviceContractor,
-                serviceDate, amsInfoTest.reportContractor, amsInfoTest.reportDate, amsInfoTest.typesOfWork);
+                serviceDate, amsInfoTest.reportContractor, amsInfoTest.reportDate, amsInfoTest.accessStatus, amsInfoTest.typesOfWork);
 
         ResultActions resultActions = mockMvc.perform(put("/api/ams/20007")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

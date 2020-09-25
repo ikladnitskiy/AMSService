@@ -11,11 +11,11 @@ public interface AmsService {
 
     List<Ams> getAll(String code, Integer number, String cluster, String address, TypeAms typeAms, Double minHeight, Double maxHeight,
                      String serviceContractor, LocalDate afterServiceDate, LocalDate beforeServiceDate, String reportContractor,
-                     LocalDate afterReportDate, LocalDate beforeReportDate, AmsOrder order, Integer pageNumber, Integer pageSize);
+                     LocalDate afterReportDate, LocalDate beforeReportDate, Boolean accessStatus, AmsOrder order, Integer pageNumber, Integer pageSize);
 
     long count(String code, Integer number, String cluster, String address, TypeAms typeAms, Double minHeight, Double maxHeight,
                String serviceContractor, LocalDate afterServiceDate, LocalDate beforeServiceDate, String reportContractor,
-               LocalDate afterReportDate, LocalDate beforeReportDate);
+               LocalDate afterReportDate, LocalDate beforeReportDate, Boolean accessStatus);
 
     Ams getById(Integer id);
 

@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.kladnitskiy.AMSService.rest.utils.TestHelper.*;
 
-@Sql(scripts = "classpath:database/initDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = "classpath:database/testPopulateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class CreateAmsTest extends AbstractTest {
 
     private final static Integer expectedId = 10000;
@@ -30,7 +30,7 @@ public class CreateAmsTest extends AbstractTest {
         super.setup();
 
         expected = new AmsInfoTest(expectedId, "PS", 38, "Pskov", "Pskovskaya obl., g. Ostrov", TypeAms.MAST, 90.0d,
-                "Ivanov", LocalDate.of(2020, 5, 16), "Petrov", LocalDate.of(2020, 5, 20),
+                "Ivanov", LocalDate.of(2020, 5, 16), "Petrov", LocalDate.of(2020, 5, 20), false,
                 new TypesOfWorkInfoTest(true, true, true, true, true, false, false, false, false, false, false, false, false, false, false));
     }
 

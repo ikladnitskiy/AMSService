@@ -45,7 +45,7 @@ public class GetAmsByIdTest extends AbstractTest {
     @Test
     public void getAmsByIdTest() throws Exception {
         AmsInfoTest expected = new AmsInfoTest(20007, "PS", 38, "Pskov", "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe", TypeAms.MAST, 90.0d,
-                "Ivanov", LocalDate.of(2020, 5, 16), "Petrov", LocalDate.of(2020, 5, 20),
+                "Ivanov", LocalDate.of(2020, 5, 16), "Petrov", LocalDate.of(2020, 5, 20), false,
                 new TypesOfWorkInfoTest(true, true, true, true, true, false, false, false, false, false, false, false, false, false, false));
 
         ResultActions resultActions = mockMvc.perform(get("/api/ams/20007")

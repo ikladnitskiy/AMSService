@@ -19,17 +19,14 @@ public class AmsInfoTest {
     public TypeAms type;
     public Double height;
     public String serviceContractor;
-
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     public LocalDate serviceDate;
-
     public String reportContractor;
-
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     public LocalDate reportDate;
-
+    public Boolean accessStatus;
     public TypesOfWorkInfoTest typesOfWork;
 
     public AmsInfoTest() {
@@ -37,7 +34,7 @@ public class AmsInfoTest {
     }
 
     public AmsInfoTest(Integer id, String code, Integer number, String cluster, String address, TypeAms type, Double height,
-                       String serviceContractor, LocalDate serviceDate, String reportContractor, LocalDate reportDate, TypesOfWorkInfoTest typesOfWork) {
+                       String serviceContractor, LocalDate serviceDate, String reportContractor, LocalDate reportDate, Boolean accessStatus, TypesOfWorkInfoTest typesOfWork) {
         this.id = id;
         this.code = code;
         this.number = number;
@@ -49,6 +46,7 @@ public class AmsInfoTest {
         this.serviceDate = serviceDate;
         this.reportContractor = reportContractor;
         this.reportDate = reportDate;
+        this.accessStatus = accessStatus;
         this.typesOfWork = typesOfWork;
     }
 
@@ -70,11 +68,12 @@ public class AmsInfoTest {
         if (!serviceDate.equals(that.serviceDate)) return false;
         if (!reportContractor.equals(that.reportContractor)) return false;
         if (!reportDate.equals(that.reportDate)) return false;
+        if (!accessStatus.equals(that.accessStatus)) return false;
         return typesOfWork.equals(that.typesOfWork);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, number, cluster, address, type, height, serviceContractor, serviceDate, reportContractor, reportDate, typesOfWork);
+        return Objects.hash(id, code, number, cluster, address, type, height, serviceContractor, serviceDate, reportContractor, reportDate, accessStatus, typesOfWork);
     }
 }

@@ -31,13 +31,13 @@ public class AmsServiceImpl implements AmsService {
     @Override
     public List<Ams> getAll(String code, Integer number, String cluster, String address, TypeAms typeAms, Double minHeight,
                             Double maxHeight, String serviceContractor, LocalDate afterServiceDate, LocalDate beforeServiceDate,
-                            String reportContractor, LocalDate afterReportDate, LocalDate beforeReportDate,
+                            String reportContractor, LocalDate afterReportDate, LocalDate beforeReportDate, Boolean accessStatus,
                             AmsOrder order, Integer pageNumber, Integer pageSize) {
 
         log.info("In AmsServiceImpl method getAll");
         AmsSpecificationsBuilder builder = new AmsSpecificationsBuilder();
         builder.fillAmsSpecificationBuilder(code, number, cluster, address, typeAms, minHeight, maxHeight,
-                serviceContractor, afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate);
+                serviceContractor, afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate, accessStatus);
         Specification<Ams> spec = builder.build();
         Page<Ams> page = this.amsRepository.findAll(spec, getPageRequest(pageNumber, pageSize, order.getFieldName()));
         return page.getContent();
@@ -46,12 +46,12 @@ public class AmsServiceImpl implements AmsService {
     @Override
     public long count(String code, Integer number, String cluster, String address, TypeAms typeAms, Double minHeight,
                       Double maxHeight, String serviceContractor, LocalDate afterServiceDate, LocalDate beforeServiceDate,
-                      String reportContractor, LocalDate afterReportDate, LocalDate beforeReportDate) {
+                      String reportContractor, LocalDate afterReportDate, LocalDate beforeReportDate, Boolean accessStatus) {
 
         log.info("In AmsServiceImpl method count");
         AmsSpecificationsBuilder builder = new AmsSpecificationsBuilder();
         builder.fillAmsSpecificationBuilder(code, number, cluster, address, typeAms, minHeight, maxHeight,
-                serviceContractor, afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate);
+                serviceContractor, afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate, accessStatus);
         Specification<Ams> spec = builder.build();
         return this.amsRepository.count(spec);
     }

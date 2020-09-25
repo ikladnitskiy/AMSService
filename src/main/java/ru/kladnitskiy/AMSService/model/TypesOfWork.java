@@ -6,6 +6,9 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
+/**
+ * Виды работ, проводимых на АМС.
+ * */
 @Data
 @Entity
 @Table(name = "type_of_work")

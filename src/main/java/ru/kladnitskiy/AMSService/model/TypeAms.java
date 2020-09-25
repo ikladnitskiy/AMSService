@@ -1,5 +1,8 @@
 package ru.kladnitskiy.AMSService.model;
 
+/**
+ * Тип антенно-мачтового сооружения.
+ */
 public enum TypeAms {
     MAST("mast"),
     TOWER("tower"),

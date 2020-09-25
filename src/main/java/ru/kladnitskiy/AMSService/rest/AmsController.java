@@ -4,7 +4,6 @@ package ru.kladnitskiy.AMSService.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kladnitskiy.AMSService.model.Ams;
@@ -20,6 +19,9 @@ import java.util.stream.Collectors;
 import static ru.kladnitskiy.AMSService.model.Ams.convertToAms;
 import static ru.kladnitskiy.AMSService.model.dto.AmsDto.convertToAmsDto;
 
+/**
+ * Контроллер действий с АМС.
+ */
 @RestController
 @RequestMapping(value = "/api/ams")
 public class AmsController {
@@ -31,7 +33,13 @@ public class AmsController {
         this.amsService = amsService;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Получение информации об АМС по ее ID.
+     *
+     * @param id - ID антенно-мачтового сооружения;
+     * @return информация об АМС.
+     */
+    @GetMapping(value = "/{id}")
     public ResponseEntity<AmsDto> getById(@PathVariable("id") Integer id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -40,7 +48,13 @@ public class AmsController {
         return new ResponseEntity<>(convertToAmsDto(ams), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Сохранение информации об АМС в БД.
+     *
+     * @param amsDto - информация об АМС;
+     * @return информация об АМС.
+     */
+    @PostMapping(value = "")
     public ResponseEntity<AmsDto> createAms(@Valid @RequestBody AmsDto amsDto) {
         Ams requestAms = convertToAms(amsDto);
         requestAms.getTypesOfWork().setAms(requestAms);
@@ -48,7 +62,12 @@ public class AmsController {
         return new ResponseEntity<>(convertToAmsDto(result), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Удаление информации об АМС из БД по ее ID.
+     *
+     * @param id - ID АМС.
+     */
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<AmsDto> deleteAms(@PathVariable("id") Integer id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -57,7 +76,14 @@ public class AmsController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Обновление информации об АМС в БД по ее ID.
+     *
+     * @param id     - ID антенно-мачтового сооружения;
+     * @param amsDto - информация об АМС;
+     * @return обновленная информация об АМС.
+     */
+    @PutMapping(value = "/{id}")
     public ResponseEntity<AmsDto> updateAms(@PathVariable("id") Integer id, @Valid @RequestBody AmsDto amsDto) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -66,7 +92,17 @@ public class AmsController {
         return new ResponseEntity<>(convertToAmsDto(updatedAms), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Получение списка АМС, соответствующих заданным параметрам.
+     * Обязательными параметрами являются:
+     *
+     * @param order      - параметр, по которому упорядочиваются полученные данные;
+     * @param pageNumber - номер страницы;
+     * @param pageSize   - размер страницы (кол-во элементов на одной странице);
+     * @return список сущностей, содержащий информацию об АМС, соответствующих переданным параметрам.
+     * @see AmsOrder
+     */
+    @GetMapping(value = "")
     public ResponseEntity<List<AmsDto>> getAll(@RequestParam(name = "code", required = false) String code,
                                                @RequestParam(name = "number", required = false) Integer number,
                                                @RequestParam(name = "cluster", required = false) String cluster,
@@ -84,12 +120,14 @@ public class AmsController {
                                                        iso = DateTimeFormat.ISO.DATE) LocalDate afterReportDate,
                                                @RequestParam(name = "beforeReportDate", required = false) @DateTimeFormat(
                                                        iso = DateTimeFormat.ISO.DATE) LocalDate beforeReportDate,
+                                               @RequestParam(name = "accessStatus", required = false) Boolean accessStatus,
                                                @RequestParam(name = "order") AmsOrder order,
                                                @RequestParam(name = "pageNumber") Integer pageNumber,
                                                @RequestParam(name = "pageSize") Integer pageSize) {
 
-        List<Ams> amsList = this.amsService.getAll(code, number, cluster, address, typeAms, minHeight, maxHeight, serviceContractor,
-                afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate, order, pageNumber, pageSize);
+        List<Ams> amsList = this.amsService.getAll(code, number, cluster, address, typeAms, minHeight, maxHeight,
+                serviceContractor, afterServiceDate, beforeServiceDate, reportContractor, afterReportDate,
+                beforeReportDate, accessStatus, order, pageNumber, pageSize);
         if (amsList == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -99,7 +137,12 @@ public class AmsController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Получение количества АМС, соответствующих переданным параметрам.
+     *
+     * @return количество АМС, соотвествующих заданным в запросе параметрам.
+     */
+    @GetMapping(value = "/count")
     public ResponseEntity<Long> count(@RequestParam(name = "code", required = false) String code,
                                       @RequestParam(name = "number", required = false) Integer number,
                                       @RequestParam(name = "cluster", required = false) String cluster,
@@ -116,10 +159,11 @@ public class AmsController {
                                       @RequestParam(name = "afterReportDate", required = false) @DateTimeFormat(
                                               iso = DateTimeFormat.ISO.DATE) LocalDate afterReportDate,
                                       @RequestParam(name = "beforeReportDate", required = false) @DateTimeFormat(
-                                              iso = DateTimeFormat.ISO.DATE) LocalDate beforeReportDate) {
+                                              iso = DateTimeFormat.ISO.DATE) LocalDate beforeReportDate,
+                                      @RequestParam(name = "accessStatus", required = false) Boolean accessStatus) {
 
         Long count = this.amsService.count(code, number, cluster, address, typeAms, minHeight, maxHeight, serviceContractor,
-                afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate);
+                afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate, accessStatus);
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
 }

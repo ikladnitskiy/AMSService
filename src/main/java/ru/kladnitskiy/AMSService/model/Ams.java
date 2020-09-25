@@ -1,6 +1,8 @@
 package ru.kladnitskiy.AMSService.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 import ru.kladnitskiy.AMSService.model.dto.AmsDto;
 
@@ -10,6 +12,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
+/**
+ * Сущность антенно-мачтового сооружения.
+ */
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "ams")
@@ -66,33 +73,16 @@ public class Ams {
     @Column(name = "report_date")
     private LocalDate reportDate;
 
+    @Column(name = "access_status")
+    private Boolean accessStatus;
+
     @OneToOne(mappedBy = "ams", cascade = CascadeType.ALL)
     private TypesOfWork typesOfWork;
-
-    //constructors
-    public Ams() {
-
-    }
-
-    public Ams(Integer id, String code, Integer number, String cluster, String address, TypeAms type, Double height,
-               String serviceContractor, LocalDate serviceDate, String reportContractor, LocalDate reportDate, TypesOfWork typesOfWork) {
-        this.id = id;
-        this.code = code;
-        this.number = number;
-        this.cluster = cluster;
-        this.address = address;
-        this.type = type;
-        this.height = height;
-        this.serviceContractor = serviceContractor;
-        this.serviceDate = serviceDate;
-        this.reportContractor = reportContractor;
-        this.reportDate = reportDate;
-        this.typesOfWork = typesOfWork;
-    }
 
     //methods
     public static Ams convertToAms(AmsDto ams) {
         return new Ams(ams.getId(), ams.getCode(), ams.getNumber(), ams.getCluster(), ams.getAddress(), ams.getType(),
-                ams.getHeight(), ams.getServiceContractor(), ams.getServiceDate(), ams.getReportContractor(), ams.getReportDate(), ams.getTypesOfWork());
+                ams.getHeight(), ams.getServiceContractor(), ams.getServiceDate(), ams.getReportContractor(),
+                ams.getReportDate(), ams.getAccessStatus(), ams.getTypesOfWork());
     }
 }

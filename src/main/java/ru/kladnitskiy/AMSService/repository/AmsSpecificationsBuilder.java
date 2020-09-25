@@ -23,7 +23,7 @@ public class AmsSpecificationsBuilder {
 
     public void fillAmsSpecificationBuilder(String code, Integer number, String cluster, String address, TypeAms typeAms, Double minHeight,
                                             Double maxHeight, String serviceContractor, LocalDate afterServiceDate, LocalDate beforeServiceDate,
-                                            String reportContractor, LocalDate afterReportDate, LocalDate beforeReportDate) {
+                                            String reportContractor, LocalDate afterReportDate, LocalDate beforeReportDate, Boolean accessStatus) {
 
         if (code != null && !code.isEmpty()) this.with("code", SearchOperation.EQUALITY, code);
         if (number != null) this.with("number", SearchOperation.EQUALITY, number);
@@ -52,6 +52,7 @@ public class AmsSpecificationsBuilder {
             if (afterReportDate != null) this.with("reportDate", SearchOperation.GREATER_THAN, afterReportDate);
             if (beforeReportDate != null) this.with("reportDate", SearchOperation.LESS_THAN, beforeReportDate);
         }
+        if (accessStatus != null) this.with("accessStatus", SearchOperation.EQUALITY, accessStatus);
     }
 
     public AmsSpecificationsBuilder with(String key, SearchOperation operation, Object value) {

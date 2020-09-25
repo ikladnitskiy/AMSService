@@ -13,6 +13,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
+                    "\"accessStatus\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -46,6 +47,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
+                    "\"accessStatus\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -78,6 +80,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
+                    "\"accessStatus\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -111,6 +114,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
+                    "\"accessStatus\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -144,6 +148,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
+                    "\"accessStatus\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -177,6 +182,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
+                    "\"accessStatus\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -210,6 +216,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
+                    "\"accessStatus\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -242,6 +249,12 @@ public class TestHelper {
                         "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe " +
                         "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe " +
                         "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe " +
+                        "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe " +
+                        "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe " +
+                        "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe " +
+                        "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe " +
+                        "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe " +
+                        "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe " +
                         "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe\"," +
                     "\"type\": \"MAST\"," +
                     "\"height\": 90," +
@@ -249,6 +262,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
+                    "\"accessStatus\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -282,6 +296,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-20\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-16\"," +
+                    "\"accessStatus\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
