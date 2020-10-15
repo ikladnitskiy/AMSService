@@ -373,9 +373,9 @@ public class TestHelper {
                 new TypesOfWorkInfoTest(true, true, false, true, false, false, false, false, false, false, false, false, false, false, false)));
         allAms.add(new AmsInfoTest(20016, "EK", 54, "Ekaterinburg", "Sverdlovskaya obl, Achitskiy r-n, der. Osyp", TypeAms.TOWER, 72.0, "Kosoglazov", LocalDate.of(2020, 4, 15), "Idealniy", LocalDate.of(2020, 4, 16), false,
                 new TypesOfWorkInfoTest(true, true, false, false, false, false, false, false, false, false, false, false, false, false, false)));
-        allAms.add(new AmsInfoTest(20017, "EK", 75, "Ekaterinburg", "Sverdlovskaya obl, g. Kachkanar, ul. Sverdlova, d. 39/1", TypeAms.MAST, 15.0, "Bespalov", LocalDate.of(2020, 4, 16), null, null, false,
+        allAms.add(new AmsInfoTest(20017, "EK", 75, "Ekaterinburg", "Sverdlovskaya obl, g. Kachkanar, ul. Sverdlova, d. 39/1", TypeAms.MAST, 15.0, "Bespalov", LocalDate.of(2020, 4, 16), null, null, true,
                 new TypesOfWorkInfoTest(true, true, false, true, false, false, false, false, false, false, false, false, false, false, false)));
-        allAms.add(new AmsInfoTest(20018, "EK", 80, "Ekaterinburg", "Sverdlovskaya obl, Nigneserginskiy r-n, der. Urazaevo", TypeAms.TOWER, 30.0, "Krivorukov", LocalDate.of(2020, 4, 17), "Dolgodumov", null, false,
+        allAms.add(new AmsInfoTest(20018, "EK", 80, "Ekaterinburg", "Sverdlovskaya obl, Nigneserginskiy r-n, der. Urazaevo", TypeAms.TOWER, 30.0, "Krivorukov", LocalDate.of(2020, 4, 17), "Dolgodumov", null, true,
                 new TypesOfWorkInfoTest(true, true, false, false, false, false, false, false, false, false, false, false, false, false, false)));
         allAms.add(new AmsInfoTest(20019, "EK", 86, "Ekaterinburg", "Sverdlovskaya obl, g. Krasnoufimsk, ul. Gagarina", TypeAms.PILLAR, 30.0, "Kosoglazov", LocalDate.of(2020, 4, 18), "Idealniy", LocalDate.of(2020, 4, 23), false,
                 new TypesOfWorkInfoTest(true, true, false, false, false, false, false, false, false, false, false, false, false, false, false)));
