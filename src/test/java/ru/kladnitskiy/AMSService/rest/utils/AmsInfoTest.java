@@ -50,30 +50,150 @@ public class AmsInfoTest {
         this.typesOfWork = typesOfWork;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public String getCluster() {
+        return cluster;
+    }
+
+    public void setCluster(String cluster) {
+        this.cluster = cluster;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public TypeAms getType() {
+        return type;
+    }
+
+    public void setType(TypeAms type) {
+        this.type = type;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public String getServiceContractor() {
+        return serviceContractor;
+    }
+
+    public void setServiceContractor(String serviceContractor) {
+        this.serviceContractor = serviceContractor;
+    }
+
+    public LocalDate getServiceDate() {
+        return serviceDate;
+    }
+
+    public void setServiceDate(LocalDate serviceDate) {
+        this.serviceDate = serviceDate;
+    }
+
+    public String getReportContractor() {
+        return reportContractor;
+    }
+
+    public void setReportContractor(String reportContractor) {
+        this.reportContractor = reportContractor;
+    }
+
+    public LocalDate getReportDate() {
+        return reportDate;
+    }
+
+    public void setReportDate(LocalDate reportDate) {
+        this.reportDate = reportDate;
+    }
+
+    public Boolean getAccessStatus() {
+        return accessStatus;
+    }
+
+    public void setAccessStatus(Boolean accessStatus) {
+        this.accessStatus = accessStatus;
+    }
+
+    public TypesOfWorkInfoTest getTypesOfWork() {
+        return typesOfWork;
+    }
+
+    public void setTypesOfWork(TypesOfWorkInfoTest typesOfWork) {
+        this.typesOfWork = typesOfWork;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof AmsInfoTest)) return false;
-
         AmsInfoTest that = (AmsInfoTest) o;
-
-        if (!id.equals(that.id)) return false;
-        if (!code.equals(that.code)) return false;
-        if (!number.equals(that.number)) return false;
-        if (!cluster.equals(that.cluster)) return false;
-        if (!address.equals(that.address)) return false;
-        if (type != that.type) return false;
-        if (!height.equals(that.height)) return false;
-        if (!serviceContractor.equals(that.serviceContractor)) return false;
-        if (!serviceDate.equals(that.serviceDate)) return false;
-        if (!reportContractor.equals(that.reportContractor)) return false;
-        if (!reportDate.equals(that.reportDate)) return false;
-        if (!accessStatus.equals(that.accessStatus)) return false;
-        return typesOfWork.equals(that.typesOfWork);
+        return Objects.equals(id, that.id) &&
+                Objects.equals(code, that.code) &&
+                Objects.equals(number, that.number) &&
+                Objects.equals(cluster, that.cluster) &&
+                Objects.equals(address, that.address) &&
+                type == that.type &&
+                Objects.equals(height, that.height) &&
+                Objects.equals(serviceContractor, that.serviceContractor) &&
+                Objects.equals(serviceDate, that.serviceDate) &&
+                Objects.equals(reportContractor, that.reportContractor) &&
+                Objects.equals(accessStatus, that.accessStatus) &&
+                Objects.equals(typesOfWork, that.typesOfWork);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, code, number, cluster, address, type, height, serviceContractor, serviceDate, reportContractor, reportDate, accessStatus, typesOfWork);
+    }
+
+    @Override
+    public String toString() {
+        return "AmsInfoTest{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", number=" + number +
+                ", cluster='" + cluster + '\'' +
+                ", address='" + address + '\'' +
+                ", type=" + type +
+                ", height=" + height +
+                ", serviceContractor='" + serviceContractor + '\'' +
+                ", serviceDate=" + serviceDate +
+                ", reportContractor='" + reportContractor + '\'' +
+                ", reportDate=" + reportDate +
+                ", accessStatus=" + accessStatus +
+                ", typesOfWork=" + typesOfWork +
+                '}';
     }
 }

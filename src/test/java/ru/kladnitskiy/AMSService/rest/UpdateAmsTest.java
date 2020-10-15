@@ -8,7 +8,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.web.servlet.ResultActions;
 import ru.kladnitskiy.AMSService.model.TypeAms;
 import ru.kladnitskiy.AMSService.rest.utils.AmsInfoTest;
-import ru.kladnitskiy.AMSService.rest.utils.TypesOfWorkInfoTest;
+import ru.kladnitskiy.AMSService.rest.utils.TestHelper;
 
 import java.time.LocalDate;
 
@@ -17,8 +17,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.kladnitskiy.AMSService.rest.utils.TestHelper.*;
 
-@Sql(scripts = "classpath:database/testPopulateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = "classpath:testPopulateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UpdateAmsTest extends AbstractTest {
+
+    private final TestHelper testHelper = new TestHelper();
 
     @Override
     @Before
@@ -103,8 +105,6 @@ public class UpdateAmsTest extends AbstractTest {
     //test7
     @Test
     public void updateAmsWithDataTest() throws Exception {
-        AmsInfoTest amsInfoTest = mapFromJson(String.format(NORMAL_JSON_WITH_ID, 20008), AmsInfoTest.class);
-
         String code = "TST";
         Integer number = 1234;
         String address = "Test address";
@@ -113,8 +113,14 @@ public class UpdateAmsTest extends AbstractTest {
         String serviceContractor = "Contractor";
         LocalDate serviceDate = LocalDate.of(2020, 5, 9);
 
-        AmsInfoTest expected = new AmsInfoTest(20007, code, number, amsInfoTest.cluster, address, type, height, serviceContractor,
-                serviceDate, amsInfoTest.reportContractor, amsInfoTest.reportDate, amsInfoTest.accessStatus, amsInfoTest.typesOfWork);
+        AmsInfoTest expected = testHelper.getAmsInfoById(20007);
+        expected.setCode(code);
+        expected.setNumber(number);
+        expected.setAddress(address);
+        expected.setType(type);
+        expected.setHeight(height);
+        expected.setServiceContractor(serviceContractor);
+        expected.setServiceDate(serviceDate);
 
         ResultActions resultActions = mockMvc.perform(put("/api/ams/20007")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

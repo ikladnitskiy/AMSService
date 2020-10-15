@@ -121,9 +121,9 @@ public class AmsController {
                                                @RequestParam(name = "beforeReportDate", required = false) @DateTimeFormat(
                                                        iso = DateTimeFormat.ISO.DATE) LocalDate beforeReportDate,
                                                @RequestParam(name = "accessStatus", required = false) Boolean accessStatus,
-                                               @RequestParam(name = "order") AmsOrder order,
-                                               @RequestParam(name = "pageNumber") Integer pageNumber,
-                                               @RequestParam(name = "pageSize") Integer pageSize) {
+                                               @RequestParam(name = "order", required = false, defaultValue = "NUMBER") AmsOrder order,
+                                               @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                               @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
 
         List<Ams> amsList = this.amsService.getAll(code, number, cluster, address, typeAms, minHeight, maxHeight,
                 serviceContractor, afterServiceDate, beforeServiceDate, reportContractor, afterReportDate,

@@ -6,18 +6,17 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.web.servlet.ResultActions;
-import ru.kladnitskiy.AMSService.model.TypeAms;
 import ru.kladnitskiy.AMSService.rest.utils.AmsInfoTest;
-import ru.kladnitskiy.AMSService.rest.utils.TypesOfWorkInfoTest;
-
-import java.time.LocalDate;
+import ru.kladnitskiy.AMSService.rest.utils.TestHelper;
 
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql(scripts = "classpath:database/testPopulateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = "classpath:testPopulateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class GetAmsByIdTest extends AbstractTest {
+
+    private final TestHelper testHelper = new TestHelper();
 
     @Override
     @Before
@@ -44,9 +43,7 @@ public class GetAmsByIdTest extends AbstractTest {
     //test3
     @Test
     public void getAmsByIdTest() throws Exception {
-        AmsInfoTest expected = new AmsInfoTest(20007, "PS", 38, "Pskov", "Pskovskaya obl., Porkhovskiy r-n, d. Polonoe", TypeAms.MAST, 90.0d,
-                "Ivanov", LocalDate.of(2020, 5, 16), "Petrov", LocalDate.of(2020, 5, 20), false,
-                new TypesOfWorkInfoTest(true, true, true, true, true, false, false, false, false, false, false, false, false, false, false));
+        AmsInfoTest expected = testHelper.getAmsInfoById(20007);
 
         ResultActions resultActions = mockMvc.perform(get("/api/ams/20007")
                 .accept(MediaType.APPLICATION_JSON_VALUE))

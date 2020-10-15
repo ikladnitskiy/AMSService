@@ -2,11 +2,9 @@ package ru.kladnitskiy.AMSService.utils;
 
 public enum SearchOperation {
     EQUALITY,
-    GREATER_THAN,
-    LESS_THAN,
-    BETWEEN,
-    AFTER,
-    BEFORE,
-    DATE_BETWEEN,
+    GREATER_THAN_OR_EQUALS,
+    LESS_THAN_OR_EQUALS,
+    AFTER_OR_EQUALS,
+    BEFORE_OR_EQUALS,
     CONTAINS
 }

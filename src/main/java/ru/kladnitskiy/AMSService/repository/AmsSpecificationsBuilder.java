@@ -29,29 +29,18 @@ public class AmsSpecificationsBuilder {
         if (number != null) this.with("number", SearchOperation.EQUALITY, number);
         if (cluster != null) this.with("cluster", SearchOperation.EQUALITY, cluster);
         if (address != null && !address.isEmpty()) this.with("address", SearchOperation.CONTAINS, address);
-        if (typeAms != null) this.with("type", SearchOperation.EQUALITY, typeAms.getFieldName());
-        if (minHeight != null && maxHeight != null) {
-            this.with("height", SearchOperation.BETWEEN, minHeight, maxHeight);
-        } else {
-            if (minHeight != null) this.with("height", SearchOperation.GREATER_THAN, minHeight);
-            if (maxHeight != null) this.with("height", SearchOperation.LESS_THAN, maxHeight);
-        }
+        if (typeAms != null) this.with("type", SearchOperation.EQUALITY, typeAms);
+        if (minHeight != null) this.with("height", SearchOperation.GREATER_THAN_OR_EQUALS, minHeight);
+        if (maxHeight != null) this.with("height", SearchOperation.LESS_THAN_OR_EQUALS, maxHeight);
         if (serviceContractor != null && !serviceContractor.isEmpty())
             this.with("serviceContractor", SearchOperation.EQUALITY, serviceContractor);
-        if (afterServiceDate != null && beforeServiceDate != null) {
-            this.with("serviceDate", SearchOperation.DATE_BETWEEN, afterServiceDate, beforeServiceDate);
-        } else {
-            if (afterServiceDate != null) this.with("serviceDate", SearchOperation.AFTER, afterServiceDate);
-            if (beforeServiceDate != null) this.with("serviceDate", SearchOperation.BEFORE, beforeServiceDate);
-        }
+        if (afterServiceDate != null) this.with("serviceDate", SearchOperation.AFTER_OR_EQUALS, afterServiceDate);
+        if (beforeServiceDate != null) this.with("serviceDate", SearchOperation.BEFORE_OR_EQUALS, beforeServiceDate);
         if (reportContractor != null && !reportContractor.isEmpty())
             this.with("reportContractor", SearchOperation.EQUALITY, reportContractor);
-        if (afterReportDate != null && beforeReportDate != null) {
-            this.with("reportDate", SearchOperation.DATE_BETWEEN, afterReportDate, beforeReportDate);
-        } else {
-            if (afterReportDate != null) this.with("reportDate", SearchOperation.GREATER_THAN, afterReportDate);
-            if (beforeReportDate != null) this.with("reportDate", SearchOperation.LESS_THAN, beforeReportDate);
-        }
+        if (afterReportDate != null)
+            this.with("reportDate", SearchOperation.AFTER_OR_EQUALS, afterReportDate);
+        if (beforeReportDate != null) this.with("reportDate", SearchOperation.BEFORE_OR_EQUALS, beforeReportDate);
         if (accessStatus != null) this.with("accessStatus", SearchOperation.EQUALITY, accessStatus);
     }
 

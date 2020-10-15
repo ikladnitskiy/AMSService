@@ -6,32 +6,23 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.web.servlet.ResultActions;
-import ru.kladnitskiy.AMSService.model.TypeAms;
 import ru.kladnitskiy.AMSService.rest.utils.AmsInfoTest;
-import ru.kladnitskiy.AMSService.rest.utils.TypesOfWorkInfoTest;
-
-import java.time.LocalDate;
+import ru.kladnitskiy.AMSService.rest.utils.TestHelper;
 
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.kladnitskiy.AMSService.rest.utils.TestHelper.*;
 
-@Sql(scripts = "classpath:database/testPopulateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = "classpath:testPopulateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class CreateAmsTest extends AbstractTest {
 
-    private final static Integer expectedId = 10000;
-
-    private AmsInfoTest expected;
+    private final TestHelper testHelper = new TestHelper();
 
     @Override
     @Before
     public void setup() {
         super.setup();
-
-        expected = new AmsInfoTest(expectedId, "PS", 38, "Pskov", "Pskovskaya obl., g. Ostrov", TypeAms.MAST, 90.0d,
-                "Ivanov", LocalDate.of(2020, 5, 16), "Petrov", LocalDate.of(2020, 5, 20), false,
-                new TypesOfWorkInfoTest(true, true, true, true, true, false, false, false, false, false, false, false, false, false, false));
     }
 
     //test1
@@ -114,6 +105,10 @@ public class CreateAmsTest extends AbstractTest {
     //test8
     @Test
     public void createAmsTrueTest() throws Exception {
+        AmsInfoTest expected = testHelper.getAmsInfoById(20007);
+        expected.setId(10000);
+        expected.setAddress("Pskovskaya obl., g. Ostrov");
+
         ResultActions resultActions = mockMvc.perform(post("/api/ams")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)

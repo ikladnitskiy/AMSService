@@ -24,18 +24,14 @@ public class AmsSpecification implements Specification<Ams> {
         switch (criteria.getOperation()) {
             case EQUALITY:
                 return builder.equal(root.get(criteria.getKey()), criteria.getValue1());
-            case GREATER_THAN:
+            case GREATER_THAN_OR_EQUALS:
                 return builder.greaterThanOrEqualTo(root.get(criteria.getKey()), Double.valueOf(criteria.getValue1().toString()));
-            case LESS_THAN:
+            case LESS_THAN_OR_EQUALS:
                 return builder.lessThanOrEqualTo(root.get(criteria.getKey()), Double.valueOf(criteria.getValue1().toString()));
-            case BETWEEN:
-                return builder.between(root.get(criteria.getKey()), Double.valueOf(criteria.getValue1().toString()), Double.valueOf(criteria.getValue2().toString()));
-            case AFTER:
+            case AFTER_OR_EQUALS:
                 return builder.greaterThanOrEqualTo(root.get(criteria.getKey()), (LocalDate) criteria.getValue1());
-            case BEFORE:
+            case BEFORE_OR_EQUALS:
                 return builder.lessThanOrEqualTo(root.get(criteria.getKey()), (LocalDate) criteria.getValue1());
-            case DATE_BETWEEN:
-                return builder.between(root.get(criteria.getKey()), (LocalDate) criteria.getValue1(), (LocalDate) criteria.getValue2());
             case CONTAINS:
                 return builder.like(root.get(criteria.getKey()), "%" + criteria.getValue1() + "%");
             default:
