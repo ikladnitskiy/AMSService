@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 /**
- * Транспортный для передачи общей информации об антенно-мачтовом сооружении.
+ * Транспортный объект для передачи общей информации об антенно-мачтовом сооружении.
  */
 @Data
 @AllArgsConstructor
@@ -56,12 +56,12 @@ public class AmsDto {
 
     @PastOrPresent
     private LocalDate reportDate;
-    private Boolean accessStatus;
+    private Boolean isAccess;
     private final TypesOfWork typesOfWork;
 
     public static AmsDto convertToAmsDto(Ams ams) {
         return new AmsDto(ams.getId(), ams.getCode(), ams.getNumber(), ams.getCluster(), ams.getAddress(), ams.getType(),
                 ams.getHeight(), ams.getServiceContractor(), ams.getServiceDate(), ams.getReportContractor(),
-                ams.getReportDate(), ams.getAccessStatus(), ams.getTypesOfWork());
+                ams.getReportDate(), ams.getIsAccess(), ams.getTypesOfWork());
     }
 }

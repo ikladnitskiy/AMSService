@@ -1,4 +1,4 @@
-package ru.kladnitskiy.AMSService.utils;
+package ru.kladnitskiy.AMSService.repository.utils;
 
 public enum SearchOperation {
     EQUALITY,

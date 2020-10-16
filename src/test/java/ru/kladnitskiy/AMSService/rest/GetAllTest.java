@@ -135,7 +135,7 @@ public class GetAllTest extends AbstractTest {
     //test7
     @Test
     public void getAllWithFiltersServiceContractorAccess() throws Exception {
-        ResultActions resultActions = mockMvc.perform(get("/api/ams?serviceContractor=Krivorukov&accessStatus=true")
+        ResultActions resultActions = mockMvc.perform(get("/api/ams?serviceContractor=Krivorukov&isAccess=true")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
@@ -144,9 +144,9 @@ public class GetAllTest extends AbstractTest {
         List<AmsInfoTest> actual = mapFromJson(contentAsString, typeReference);
         List<AmsInfoTest> expected = testHelper.getAmsInfoByPage(0, 5, testHelper.getAllAms().stream()
                 .filter(ams -> Objects.equals(ams.getServiceContractor(), "Krivorukov"))
-                .filter(ams -> ams.getAccessStatus().equals(true))
+                .filter(ams -> ams.isAccess().equals(true))
                 .collect(Collectors.toList()));
-        assertTrue("Возвращается неверный результат при запросе GET /api/ams с параметрами serviceContractor и accessStatus.", actual.equals(expected));
+        assertTrue("Возвращается неверный результат при запросе GET /api/ams с параметрами serviceContractor и isAccess.", actual.equals(expected));
     }
 
     //test8

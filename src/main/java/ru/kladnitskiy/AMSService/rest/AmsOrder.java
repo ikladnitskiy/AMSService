@@ -1,5 +1,8 @@
 package ru.kladnitskiy.AMSService.rest;
 
+/**
+ * Типы используемых сортировок списков АМС.
+ */
 public enum AmsOrder {
     NUMBER("number"), // default
     HEIGHT("height"),

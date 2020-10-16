@@ -174,7 +174,7 @@ public class GetCountTest extends AbstractTest {
     //test9
     @Test
     public void getCountWithFiltersCodeAccessStatus() throws Exception {
-        ResultActions resultActions = mockMvc.perform(get("/api/ams/count?code=EK&accessStatus=true")
+        ResultActions resultActions = mockMvc.perform(get("/api/ams/count?code=EK&isAccess=true")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
@@ -183,8 +183,9 @@ public class GetCountTest extends AbstractTest {
         int actual = Integer.parseInt(contentAsString);
         long expected = testHelper.getAllAms().stream()
                 .filter(ams -> ams.getCode().equals("EK"))
-                .filter(ams -> ams.getAccessStatus().equals(true))
+                .filter(ams -> ams.isAccess().equals(true))
                 .count();
-        assertTrue("Возвращается неверный результат при запросе GET /api/ams/count с параметрами code, accessStatus.", actual == expected);
+        System.out.println("Actual: " + actual + " Expexted: " + expected);
+        assertTrue("Возвращается неверный результат при запросе GET /api/ams/count с параметрами code, isAccess.", actual == expected);
     }
 }

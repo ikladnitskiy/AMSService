@@ -41,10 +41,10 @@ public class AmsController {
      */
     @GetMapping(value = "/{id}")
     public ResponseEntity<AmsDto> getById(@PathVariable("id") Integer id) {
-        if (id == null) {
+        Ams ams = this.amsService.getById(id);
+        if (ams == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Ams ams = this.amsService.getById(id);
         return new ResponseEntity<>(convertToAmsDto(ams), HttpStatus.OK);
     }
 
@@ -56,9 +56,7 @@ public class AmsController {
      */
     @PostMapping(value = "")
     public ResponseEntity<AmsDto> createAms(@Valid @RequestBody AmsDto amsDto) {
-        Ams requestAms = convertToAms(amsDto);
-        requestAms.getTypesOfWork().setAms(requestAms);
-        Ams result = this.amsService.save(requestAms);
+        Ams result = this.amsService.save(convertToAms(amsDto));
         return new ResponseEntity<>(convertToAmsDto(result), HttpStatus.CREATED);
     }
 
@@ -94,15 +92,14 @@ public class AmsController {
 
     /**
      * Получение списка АМС, соответствующих заданным параметрам.
-     * Обязательными параметрами являются:
      *
-     * @param order      - параметр, по которому упорядочиваются полученные данные;
-     * @param pageNumber - номер страницы;
-     * @param pageSize   - размер страницы (кол-во элементов на одной странице);
+     * @param order      - параметр, по которому упорядочиваются полученные данные, значение по умолчанию - "NUMBER";
+     * @param pageNumber - номер страницы, значение по умолчанию - "0";
+     * @param pageSize   - размер страницы (кол-во элементов на одной странице), значение по умолчанию - "5";
      * @return список сущностей, содержащий информацию об АМС, соответствующих переданным параметрам.
      * @see AmsOrder
      */
-    @GetMapping(value = "")
+    @GetMapping
     public ResponseEntity<List<AmsDto>> getAll(@RequestParam(name = "code", required = false) String code,
                                                @RequestParam(name = "number", required = false) Integer number,
                                                @RequestParam(name = "cluster", required = false) String cluster,
@@ -120,14 +117,14 @@ public class AmsController {
                                                        iso = DateTimeFormat.ISO.DATE) LocalDate afterReportDate,
                                                @RequestParam(name = "beforeReportDate", required = false) @DateTimeFormat(
                                                        iso = DateTimeFormat.ISO.DATE) LocalDate beforeReportDate,
-                                               @RequestParam(name = "accessStatus", required = false) Boolean accessStatus,
+                                               @RequestParam(name = "isAccess", required = false) Boolean isAccess,
                                                @RequestParam(name = "order", required = false, defaultValue = "NUMBER") AmsOrder order,
                                                @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
                                                @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
 
         List<Ams> amsList = this.amsService.getAll(code, number, cluster, address, typeAms, minHeight, maxHeight,
                 serviceContractor, afterServiceDate, beforeServiceDate, reportContractor, afterReportDate,
-                beforeReportDate, accessStatus, order, pageNumber, pageSize);
+                beforeReportDate, isAccess, order, pageNumber, pageSize);
         if (amsList == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -160,10 +157,10 @@ public class AmsController {
                                               iso = DateTimeFormat.ISO.DATE) LocalDate afterReportDate,
                                       @RequestParam(name = "beforeReportDate", required = false) @DateTimeFormat(
                                               iso = DateTimeFormat.ISO.DATE) LocalDate beforeReportDate,
-                                      @RequestParam(name = "accessStatus", required = false) Boolean accessStatus) {
+                                      @RequestParam(name = "isAccess", required = false) Boolean isAccess) {
 
         Long count = this.amsService.count(code, number, cluster, address, typeAms, minHeight, maxHeight, serviceContractor,
-                afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate, accessStatus);
+                afterServiceDate, beforeServiceDate, reportContractor, afterReportDate, beforeReportDate, isAccess);
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
 }

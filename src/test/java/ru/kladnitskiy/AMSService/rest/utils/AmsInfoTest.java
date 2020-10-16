@@ -26,7 +26,7 @@ public class AmsInfoTest {
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     public LocalDate reportDate;
-    public Boolean accessStatus;
+    public Boolean isAccess;
     public TypesOfWorkInfoTest typesOfWork;
 
     public AmsInfoTest() {
@@ -34,7 +34,7 @@ public class AmsInfoTest {
     }
 
     public AmsInfoTest(Integer id, String code, Integer number, String cluster, String address, TypeAms type, Double height,
-                       String serviceContractor, LocalDate serviceDate, String reportContractor, LocalDate reportDate, Boolean accessStatus, TypesOfWorkInfoTest typesOfWork) {
+                       String serviceContractor, LocalDate serviceDate, String reportContractor, LocalDate reportDate, Boolean isAccess, TypesOfWorkInfoTest typesOfWork) {
         this.id = id;
         this.code = code;
         this.number = number;
@@ -46,7 +46,7 @@ public class AmsInfoTest {
         this.serviceDate = serviceDate;
         this.reportContractor = reportContractor;
         this.reportDate = reportDate;
-        this.accessStatus = accessStatus;
+        this.isAccess = isAccess;
         this.typesOfWork = typesOfWork;
     }
 
@@ -138,12 +138,12 @@ public class AmsInfoTest {
         this.reportDate = reportDate;
     }
 
-    public Boolean getAccessStatus() {
-        return accessStatus;
+    public Boolean isAccess() {
+        return isAccess;
     }
 
-    public void setAccessStatus(Boolean accessStatus) {
-        this.accessStatus = accessStatus;
+    public void setIsAccess(Boolean isAccess) {
+        this.isAccess = isAccess;
     }
 
     public TypesOfWorkInfoTest getTypesOfWork() {
@@ -169,13 +169,13 @@ public class AmsInfoTest {
                 Objects.equals(serviceContractor, that.serviceContractor) &&
                 Objects.equals(serviceDate, that.serviceDate) &&
                 Objects.equals(reportContractor, that.reportContractor) &&
-                Objects.equals(accessStatus, that.accessStatus) &&
+                Objects.equals(isAccess, that.isAccess) &&
                 Objects.equals(typesOfWork, that.typesOfWork);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, number, cluster, address, type, height, serviceContractor, serviceDate, reportContractor, reportDate, accessStatus, typesOfWork);
+        return Objects.hash(id, code, number, cluster, address, type, height, serviceContractor, serviceDate, reportContractor, reportDate, isAccess, typesOfWork);
     }
 
     @Override
@@ -192,7 +192,7 @@ public class AmsInfoTest {
                 ", serviceDate=" + serviceDate +
                 ", reportContractor='" + reportContractor + '\'' +
                 ", reportDate=" + reportDate +
-                ", accessStatus=" + accessStatus +
+                ", isAccess=" + isAccess +
                 ", typesOfWork=" + typesOfWork +
                 '}';
     }

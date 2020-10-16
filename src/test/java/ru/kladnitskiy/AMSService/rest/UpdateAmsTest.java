@@ -121,6 +121,7 @@ public class UpdateAmsTest extends AbstractTest {
         expected.setHeight(height);
         expected.setServiceContractor(serviceContractor);
         expected.setServiceDate(serviceDate);
+        expected.setIsAccess(true);
 
         ResultActions resultActions = mockMvc.perform(put("/api/ams/20007")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

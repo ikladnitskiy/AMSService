@@ -21,7 +21,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
-                    "\"accessStatus\": false," +
+                    "\"isAccess\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -55,7 +55,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
-                    "\"accessStatus\": false," +
+                    "\"isAccess\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -88,7 +88,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
-                    "\"accessStatus\": false," +
+                    "\"isAccess\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -122,7 +122,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
-                    "\"accessStatus\": false," +
+                    "\"isAccess\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -156,7 +156,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
-                    "\"accessStatus\": false," +
+                    "\"isAccess\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -190,7 +190,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
-                    "\"accessStatus\": false," +
+                    "\"isAccess\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -224,7 +224,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
-                    "\"accessStatus\": false," +
+                    "\"isAccess\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -270,7 +270,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-16\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-20\"," +
-                    "\"accessStatus\": false," +
+                    "\"isAccess\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -304,7 +304,7 @@ public class TestHelper {
                     "\"serviceDate\": \"2020-05-20\"," +
                     "\"reportContractor\": \"Petrov\"," +
                     "\"reportDate\": \"2020-05-16\"," +
-                    "\"accessStatus\": false," +
+                    "\"isAccess\": false," +
                     "\"typesOfWork\": " +
                         "{" +
                             "\"first1\": true," +
@@ -333,7 +333,8 @@ public class TestHelper {
                     "\"type\": \"%s\"," +
                     "\"height\": %s," +
                     "\"serviceContractor\": \"%s\"," +
-                    "\"serviceDate\": \"%s\"" +
+                    "\"serviceDate\": \"%s\"," +
+                    "\"isAccess\": true" +
                     "}";
 
     private List<AmsInfoTest> allAms = new ArrayList<>();

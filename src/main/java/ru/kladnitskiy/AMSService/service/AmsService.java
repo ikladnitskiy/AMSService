@@ -7,15 +7,20 @@ import ru.kladnitskiy.AMSService.rest.AmsOrder;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Интерфейс сервиса АМС.
+ *
+ * @see AmsServiceImpl
+ */
 public interface AmsService {
 
     List<Ams> getAll(String code, Integer number, String cluster, String address, TypeAms typeAms, Double minHeight, Double maxHeight,
                      String serviceContractor, LocalDate afterServiceDate, LocalDate beforeServiceDate, String reportContractor,
-                     LocalDate afterReportDate, LocalDate beforeReportDate, Boolean accessStatus, AmsOrder order, Integer pageNumber, Integer pageSize);
+                     LocalDate afterReportDate, LocalDate beforeReportDate, Boolean isAccess, AmsOrder order, Integer pageNumber, Integer pageSize);
 
     long count(String code, Integer number, String cluster, String address, TypeAms typeAms, Double minHeight, Double maxHeight,
                String serviceContractor, LocalDate afterServiceDate, LocalDate beforeServiceDate, String reportContractor,
-               LocalDate afterReportDate, LocalDate beforeReportDate, Boolean accessStatus);
+               LocalDate afterReportDate, LocalDate beforeReportDate, Boolean isAccess);
 
     Ams getById(Integer id);
 

@@ -2,7 +2,7 @@ package ru.kladnitskiy.AMSService.repository;
 
 import org.springframework.data.jpa.domain.Specification;
 import ru.kladnitskiy.AMSService.model.Ams;
-import ru.kladnitskiy.AMSService.utils.SearchCriteria;
+import ru.kladnitskiy.AMSService.repository.utils.SearchCriteria;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -10,6 +10,11 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 
+/**
+ * Класс спецификации АМС, служащий для построения гибких запросов в БД.
+ *
+ * @see AmsSpecificationsBuilder
+ */
 public class AmsSpecification implements Specification<Ams> {
 
     private SearchCriteria criteria;

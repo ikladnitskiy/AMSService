@@ -1,4 +1,4 @@
-package ru.kladnitskiy.AMSService.utils;
+package ru.kladnitskiy.AMSService.repository.utils;
 
 public class SearchRangeValueCriteria implements SearchCriteria {
     private String key;

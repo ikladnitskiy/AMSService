@@ -18,7 +18,7 @@ public class AmsServiceUtils {
         }
     }
 
-    public static boolean validateAms(Ams ams) {
+    public static boolean isValidAms(Ams ams) {
         if (ams.getServiceDate() != null && ams.getReportDate() != null) {
             if (ams.getServiceDate().isAfter(ams.getReportDate()))
                 throw new BadRequestException("service date must not be later than the report date", "validateAms");
@@ -27,7 +27,7 @@ public class AmsServiceUtils {
     }
 
     public static void updateAms(Ams updatedAms, Ams newAms) {
-        if (validateAms(newAms)) {
+        if (isValidAms(newAms)) {
             updatedAms.setCode(newAms.getCode());
             updatedAms.setNumber(newAms.getNumber());
             if (newAms.getCluster() != null) updatedAms.setCluster(newAms.getCluster());
@@ -39,6 +39,7 @@ public class AmsServiceUtils {
             if (newAms.getReportContractor() != null) updatedAms.setReportContractor(newAms.getReportContractor());
             if (newAms.getReportDate() != null) updatedAms.setReportDate(newAms.getReportDate());
             if (newAms.getTypesOfWork() != null) updatedAms.setTypesOfWork(newAms.getTypesOfWork());
+            if (newAms.getIsAccess() != null) updatedAms.setIsAccess(newAms.getIsAccess());
             updatedAms.getTypesOfWork().setAms(updatedAms);
             updatedAms.getTypesOfWork().setId(updatedAms.getId());
         }

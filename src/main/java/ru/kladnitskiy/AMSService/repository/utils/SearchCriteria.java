@@ -1,4 +1,4 @@
-package ru.kladnitskiy.AMSService.utils;
+package ru.kladnitskiy.AMSService.repository.utils;
 
 public interface SearchCriteria {
     String getKey();

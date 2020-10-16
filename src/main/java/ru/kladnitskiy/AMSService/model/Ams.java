@@ -74,7 +74,7 @@ public class Ams {
     private LocalDate reportDate;
 
     @Column(name = "access_status")
-    private Boolean accessStatus;
+    private Boolean isAccess;
 
     @OneToOne(mappedBy = "ams", cascade = CascadeType.ALL)
     private TypesOfWork typesOfWork;
@@ -83,6 +83,6 @@ public class Ams {
     public static Ams convertToAms(AmsDto ams) {
         return new Ams(ams.getId(), ams.getCode(), ams.getNumber(), ams.getCluster(), ams.getAddress(), ams.getType(),
                 ams.getHeight(), ams.getServiceContractor(), ams.getServiceDate(), ams.getReportContractor(),
-                ams.getReportDate(), ams.getAccessStatus(), ams.getTypesOfWork());
+                ams.getReportDate(), ams.getIsAccess(), ams.getTypesOfWork());
     }
 }

@@ -3,16 +3,20 @@ package ru.kladnitskiy.AMSService.repository;
 import org.springframework.data.jpa.domain.Specification;
 import ru.kladnitskiy.AMSService.model.Ams;
 import ru.kladnitskiy.AMSService.model.TypeAms;
-import ru.kladnitskiy.AMSService.utils.SearchCriteria;
-import ru.kladnitskiy.AMSService.utils.SearchOperation;
-import ru.kladnitskiy.AMSService.utils.SearchRangeValueCriteria;
-import ru.kladnitskiy.AMSService.utils.SearchValueCriteria;
+import ru.kladnitskiy.AMSService.repository.utils.SearchCriteria;
+import ru.kladnitskiy.AMSService.repository.utils.SearchOperation;
+import ru.kladnitskiy.AMSService.repository.utils.SearchRangeValueCriteria;
+import ru.kladnitskiy.AMSService.repository.utils.SearchValueCriteria;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Класс, служащий для построения гибких запросов в БД на основе параметров фильтра.
+ * При построении запроса учитываются только те параметры, значение которых не равно null.
+ */
 public class AmsSpecificationsBuilder {
 
     private final List<SearchCriteria> params;
@@ -23,7 +27,7 @@ public class AmsSpecificationsBuilder {
 
     public void fillAmsSpecificationBuilder(String code, Integer number, String cluster, String address, TypeAms typeAms, Double minHeight,
                                             Double maxHeight, String serviceContractor, LocalDate afterServiceDate, LocalDate beforeServiceDate,
-                                            String reportContractor, LocalDate afterReportDate, LocalDate beforeReportDate, Boolean accessStatus) {
+                                            String reportContractor, LocalDate afterReportDate, LocalDate beforeReportDate, Boolean isAccess) {
 
         if (code != null && !code.isEmpty()) this.with("code", SearchOperation.EQUALITY, code);
         if (number != null) this.with("number", SearchOperation.EQUALITY, number);
@@ -41,15 +45,15 @@ public class AmsSpecificationsBuilder {
         if (afterReportDate != null)
             this.with("reportDate", SearchOperation.AFTER_OR_EQUALS, afterReportDate);
         if (beforeReportDate != null) this.with("reportDate", SearchOperation.BEFORE_OR_EQUALS, beforeReportDate);
-        if (accessStatus != null) this.with("accessStatus", SearchOperation.EQUALITY, accessStatus);
+        if (isAccess != null) this.with("isAccess", SearchOperation.EQUALITY, isAccess);
     }
 
-    public AmsSpecificationsBuilder with(String key, SearchOperation operation, Object value) {
+    private AmsSpecificationsBuilder with(String key, SearchOperation operation, Object value) {
         params.add(new SearchValueCriteria(key, operation, value));
         return this;
     }
 
-    public AmsSpecificationsBuilder with(String key, SearchOperation operation, Object value1, Object value2) {
+    private AmsSpecificationsBuilder with(String key, SearchOperation operation, Object value1, Object value2) {
         params.add(new SearchRangeValueCriteria(key, operation, value1, value2));
         return this;
     }
