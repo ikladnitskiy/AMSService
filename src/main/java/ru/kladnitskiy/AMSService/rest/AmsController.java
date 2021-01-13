@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kladnitskiy.AMSService.model.Ams;
 import ru.kladnitskiy.AMSService.model.TypeAms;
-import ru.kladnitskiy.AMSService.model.dto.AmsDto;
+import ru.kladnitskiy.AMSService.rest.dto.AmsDto;
 import ru.kladnitskiy.AMSService.service.AmsService;
 
 import javax.validation.Valid;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static ru.kladnitskiy.AMSService.model.Ams.convertToAms;
-import static ru.kladnitskiy.AMSService.model.dto.AmsDto.convertToAmsDto;
+import static ru.kladnitskiy.AMSService.rest.dto.AmsDto.convertToAmsDto;
 
 /**
  * Контроллер действий с АМС.
@@ -42,9 +42,6 @@ public class AmsController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<AmsDto> getById(@PathVariable("id") Integer id) {
         Ams ams = this.amsService.getById(id);
-        if (ams == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity<>(convertToAmsDto(ams), HttpStatus.OK);
     }
 
@@ -66,12 +63,9 @@ public class AmsController {
      * @param id - ID АМС.
      */
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<AmsDto> deleteAms(@PathVariable("id") Integer id) {
-        if (id == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAms(@PathVariable("id") Integer id) {
         this.amsService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**

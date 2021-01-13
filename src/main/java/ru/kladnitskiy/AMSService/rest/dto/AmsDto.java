@@ -1,4 +1,4 @@
-package ru.kladnitskiy.AMSService.model.dto;
+package ru.kladnitskiy.AMSService.rest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,41 +23,31 @@ import java.time.LocalDate;
 public class AmsDto {
 
     private Integer id;
-
-    @NotBlank
-    @Size(min = 2, max = 4)
+    @NotBlank(message = "{ex.ams.emptyCode}")
+    @Size(min = 2, max = 4, message = "{ex.ams.wrongCode}")
     private String code;
-
-    @NotNull
-    @Range(min = 1, max = 5000)
+    @NotNull(message = "{ex.ams.emptyNumber}")
+    @Range(min = 1, max = 5000, message = "{ex.ams.wrongNumber}")
     private Integer number;
-
-    @Size(max = 128)
+    @Size(max = 128, message = "{ex.ams.clusterToLong}")
     private String cluster;
-
-    @NotBlank
-    @Size(max = 200)
+    @NotBlank(message = "{ex.ams.emptyAddress}")
+    @Size(max = 200, message = "{ex.ams.addressToLong}")
     private String address;
-
-    @NotNull
+    @NotNull(message = "{ex.ams.emptyType}")
     private TypeAms type;
-
-    @Range(min = 2, max = 200)
+    @Range(min = 2, max = 200, message = "{ex.ams.wrongHeight}")
     private Double height;
-
-    @Size(max = 32)
+    @Size(max = 32, message = "{ex.ams.nameToLong}")
     private String serviceContractor;
-
-    @PastOrPresent
+    @PastOrPresent(message = "{ex.ams.wrongServiceDate}")
     private LocalDate serviceDate;
-
-    @Size(max = 32)
+    @Size(max = 32, message = "{ex.ams.nameToLong}")
     private String reportContractor;
-
-    @PastOrPresent
+    @PastOrPresent(message = "{ex.ams.wrongReportDate}")
     private LocalDate reportDate;
     private Boolean isAccess;
-    private final TypesOfWork typesOfWork;
+    private TypesOfWork typesOfWork;
 
     public static AmsDto convertToAmsDto(Ams ams) {
         return new AmsDto(ams.getId(), ams.getCode(), ams.getNumber(), ams.getCluster(), ams.getAddress(), ams.getType(),

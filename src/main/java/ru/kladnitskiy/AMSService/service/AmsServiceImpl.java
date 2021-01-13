@@ -3,19 +3,20 @@ package ru.kladnitskiy.AMSService.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import ru.kladnitskiy.AMSService.exception.BadRequestException;
 import ru.kladnitskiy.AMSService.exception.ResourceNotFoundException;
 import ru.kladnitskiy.AMSService.model.Ams;
 import ru.kladnitskiy.AMSService.model.TypeAms;
 import ru.kladnitskiy.AMSService.repository.AmsRepository;
-import ru.kladnitskiy.AMSService.repository.AmsSpecificationsBuilder;
+import ru.kladnitskiy.AMSService.repository.utils.AmsSpecificationsBuilder;
 import ru.kladnitskiy.AMSService.rest.AmsOrder;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import static ru.kladnitskiy.AMSService.service.AmsServiceUtils.*;
 
 /**
  * Реализация интерфейса сервиса АМС.
@@ -77,7 +78,7 @@ public class AmsServiceImpl implements AmsService {
     public Ams getById(Integer id) {
         log.info("In AmsServiceImpl method getById, id={}", id);
         return this.amsRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(String.format("entity with ID=%s", id), "getById"));
+                new ResourceNotFoundException(String.format("АМС с ID=%s не найдена", id)));
     }
 
     /**
@@ -88,12 +89,13 @@ public class AmsServiceImpl implements AmsService {
     @Override
     public Ams save(Ams ams) {
         log.info("In AmsServiceImpl method save, {}", ams);
-        ams.getTypesOfWork().setAms(ams);
-        if (isValidAms(ams)) {
-            return this.amsRepository.save(ams);
-        } else {
-            return null;
+        if (!ams.isValid()) {
+            throw new BadRequestException("Дата обслуживания не может быть позже даты отчета");
         }
+        if (ams.getTypesOfWork() != null) {
+            ams.getTypesOfWork().setAms(ams);
+        }
+        return this.amsRepository.save(ams);
     }
 
     /**
@@ -104,8 +106,11 @@ public class AmsServiceImpl implements AmsService {
     @Override
     public Ams update(Integer id, Ams ams) {
         Ams updatedAms = this.amsRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(String.format("entity with ID=%s", id), "update"));
+                new ResourceNotFoundException(String.format("АМС с ID=%s не найдена", id)));
         updateAms(updatedAms, ams);
+        if (!updatedAms.isValid()) {
+            throw new BadRequestException("Дата обслуживания не может быть позже даты отчета");
+        }
         log.info("In AmsServiceImpl method update, id={}, {}", id, ams);
         return this.amsRepository.save(updatedAms);
     }
@@ -116,8 +121,46 @@ public class AmsServiceImpl implements AmsService {
     @Override
     public void delete(Integer id) {
         this.amsRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(String.format("entity with ID=%s", id), "delete"));
+                new ResourceNotFoundException(String.format("АМС с ID=%s не найдена", id)));
         log.info("In AmsServiceImpl method delete, id={}", id);
         this.amsRepository.deleteById(id);
+    }
+
+    /**
+     * Метод возвращает объект для запроса порции данных.
+     *
+     * @param pageNumber - номер страницы
+     * @param pageSize   - количество записей на одной странице
+     * @param sort       - параметр сортировки
+     */
+    private PageRequest getPageRequest(Integer pageNumber, Integer pageSize, String sort) {
+        try {
+            if (pageSize > 200) {
+                throw new IllegalArgumentException("Page size must not be more than 200!");
+            }
+            return PageRequest.of(pageNumber, pageSize, Sort.by(sort));
+        } catch (IllegalArgumentException ex) {
+            throw new BadRequestException(ex.getMessage());
+        }
+    }
+
+    /**
+     * Метод обновляет поля сущности АМС новыми данными. Учитываются только те данные, которые не null.
+     */
+    private void updateAms(Ams updatedAms, Ams dataAms) {
+        if (dataAms.getCode() != null) updatedAms.setCode(dataAms.getCode());
+        if (dataAms.getNumber() != null) updatedAms.setNumber(dataAms.getNumber());
+        if (dataAms.getCluster() != null) updatedAms.setCluster(dataAms.getCluster());
+        if (dataAms.getAddress() != null) updatedAms.setAddress(dataAms.getAddress());
+        if (dataAms.getType() != null) updatedAms.setType(dataAms.getType());
+        if (dataAms.getHeight() != null) updatedAms.setHeight(dataAms.getHeight());
+        if (dataAms.getServiceContractor() != null) updatedAms.setServiceContractor(dataAms.getServiceContractor());
+        if (dataAms.getServiceDate() != null) updatedAms.setServiceDate(dataAms.getServiceDate());
+        if (dataAms.getReportContractor() != null) updatedAms.setReportContractor(dataAms.getReportContractor());
+        if (dataAms.getReportDate() != null) updatedAms.setReportDate(dataAms.getReportDate());
+        if (dataAms.getTypesOfWork() != null) updatedAms.setTypesOfWork(dataAms.getTypesOfWork());
+        if (dataAms.getIsAccess() != null) updatedAms.setIsAccess(dataAms.getIsAccess());
+        updatedAms.getTypesOfWork().setAms(updatedAms);
+        updatedAms.getTypesOfWork().setId(updatedAms.getId());
     }
 }

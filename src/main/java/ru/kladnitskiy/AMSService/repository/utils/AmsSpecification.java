@@ -1,8 +1,7 @@
-package ru.kladnitskiy.AMSService.repository;
+package ru.kladnitskiy.AMSService.repository.utils;
 
 import org.springframework.data.jpa.domain.Specification;
 import ru.kladnitskiy.AMSService.model.Ams;
-import ru.kladnitskiy.AMSService.repository.utils.SearchCriteria;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

@@ -1,12 +1,8 @@
-package ru.kladnitskiy.AMSService.repository;
+package ru.kladnitskiy.AMSService.repository.utils;
 
 import org.springframework.data.jpa.domain.Specification;
 import ru.kladnitskiy.AMSService.model.Ams;
 import ru.kladnitskiy.AMSService.model.TypeAms;
-import ru.kladnitskiy.AMSService.repository.utils.SearchCriteria;
-import ru.kladnitskiy.AMSService.repository.utils.SearchOperation;
-import ru.kladnitskiy.AMSService.repository.utils.SearchRangeValueCriteria;
-import ru.kladnitskiy.AMSService.repository.utils.SearchValueCriteria;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
